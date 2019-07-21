@@ -1,0 +1,41 @@
+http://192.168.0.73/cli?cmd=ushow
+           tmode=1 (0:none 1:heat 2:cool)
+         prdelay=10 (0:no smoothing)
+          target=0.0°C (target temp)
+           delta=0.90°C (hysterysis)
+http://192.168.0.73/cli?cmd=h
+	h	--- List of all commands --- 
+	test45	flip-flop LED GPIO4 SDA and GPIO6 SCL 
+	files	Lists of all files in SPIFS 
+	status	CPU and WiFi status 
+	init	Initialize DS Sensors 
+	trace	value. Serial port trace 
+	filter	N. Define filter of N-samples 
+	simulC	[value] Simulate degC 
+	simulF	[value] Simulate degF 
+	targetC	[value] [delta]. Turn target heater degC on 
+	targetF	[value] [delta]. Turn target heater degF on 
+	coolC	[value] [delta]. Turn cooler on 
+	u	--- User parameters --- 
+	usave	Save User Parms 
+	uinit	Initialize default User Parms 
+	ufetch	fetch User Parms 
+	ushow	show User Parms 
+	uset	<name> <value>. Set User Parms 
+	e	--- EEPROM CLI Commands --- 
+	eshow	Shows EEPROM (header and WiFi) 
+	einit	Initializes default Header and WiFi EEPROM parameters 
+	ewifi	[ssid] [pwd] [staticIP] [port]. Updates EEPROM WiFi parms 
+	eport	port. Updates EEPROM port. Reboot! 
+	efetch	Fetches and displays EEPROM 
+	ecount	[value] prints or sets reboot counter 
+http://192.168.0.73/cli?cmd=status
+	 MAC: dc:4f:22:f9:81:5f
+	  IP: 192.168.0.73
+	DHCP: ESP_F9815F
+	WiFi: 3
+	SSID: kontopidis2GHz
+	 PWD: 123456789a
+	RSSI: -35 dBm
+	Heap: 7408 used now
+	Heap: 7408 max used

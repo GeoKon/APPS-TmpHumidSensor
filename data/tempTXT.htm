@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<title>
+	WEB CLI
+</title>
+
+	<style>
+		body {text-align: center;}
+		input {font-size: 80%;}
+		button {text-align:center; font-size: 100%; width=20 }
+		textarea {text-align:left; font-size: 120%;}
+		td {text-align: center; }
+		th { text-align: center; color:blue;}
+		.LS {text-align: right; border: 1px solid #DDD; }
+		.RS {text-align: left; border: 1px solid #DDD; }
+		.slider {
+		  width: 200px; /* Set a specific slider handle width */
+		  cursor: pointer; /* Cursor on hover */
+		}
+
+	</style>
+	
+<body onload="fetchData(); setInterval( fetchData, 2000); initValues();">
+
+	<h3>
+	<table align='center'>
+	
+		<tr><th colspan='2'>MEASUREMENTS</th></tr>
+		<tr><td class='LS'>Temp:</td>		<td class='RS' id="tb_temp"></td>		</tr>			
+		<tr><td class='LS'>Humidity:</td>	<td class='RS' id="tb_humidity"></td>		</tr>
+		<tr><td class='LS'>Heat mode:</td>	<td class='RS' id="tb_tmode"></td>		</tr>
+		<tr><td class='LS'>Target:</td>		<td class='RS' id="tb_t_heat"></td> 	</tr>
+		<tr><td class='LS'>Simul:</td>		<td class='RS' id="tb_hold"></td>		</tr>
+		<tr><td class='LS'>Relay:</td>		<td class='RS' id="tb_tstate"></td>	</tr>
+
+		<tr><th colspan='2'>LOGGER</th></tr>
+		<tr><td colspan="2" rowspan="10"><textarea id="idtext" rows="8" cols="20" wrap="hard"></textarea></td></tr>
+
+	</table>
+	</h3>
+
+	<table align="center" >
+		
+		<tr>
+			<th>To...</th>
+			<th>this setting...</th>			
+			<th></th>
+			<th>...Press</th>
+		</tr>
+		<tr>
+			<td>turn Heater ON/OFF at...</td>
+			<td><input type="range" min="-11" max="110" value="-11"  id="inpHEAT" oninput="changeHEAT();" class="slider"></td>
+			<td id="btnHEAT" style="width:100px;" >OFF</td>
+			<td><button onclick="startHEAT();" >OK</button></td>
+		</tr>
+		<tr>
+			<td>log temperature every...</td>
+			<td><input type="range" min="0" max="90" value="0" id="inpLOG" oninput="changeLOG();" class="slider"></td>
+			<td id="btnLOG" style="width:100px;">OFF</td>
+			<td><button onclick="startLOG();" >OK</button></td>
+		</tr>
+		<tr>
+			<td>simulate Temperature to...</td>
+			<td><input type="range" min="-11" max="110" value="-11"  id="inpSIM" oninput="changeSIM();" class="slider"></td>
+			<td id="btnSIM" style="width:100px;">OFF</td>
+			<td><button onclick="startSIM();" >OK</button></td>
+		</tr>
+
+		<tr>
+			<td>...</td>
+			<td>...</td>
+			<td>...</td>
+			<td id="idresp"></td>
+		</tr>
+	</table>
+
+	<h2><a href="index.htm">Goto INDEX</a></h2>
+
+	<script>
+		var simul = true;
+		var obj = {temp:45.0, tmode:0, t_heat:72.0, tstate:1, hold:0, humidity:10};
+
+		var degF = " \u2109"; 
+		var degC = " \u2103"; 
+// ------------------------------------ JSON HANDLERS -------------------------------------------		
+		function fetchData()
+		{
+			simul = !(document.location.host);
+			if( simul )
+				handler();
+			else
+			{
+				var request = new XMLHttpRequest();
+				request.onload = handler;
+				request.open('GET', '/tstat');
+				request.send();
+			}
+		}
+		function handler()
+		{
+			if( (this.status == 200) && (simul== false ) ) 
+			{
+				obj = JSON.parse( this.responseText );
+				//console.log( this.responseText );
+				//console.log( obj );
+				//console.log( obj.temp );				
+			}
+			if( simul ) // random data changes
+			{
+				if( !obj.hold ) 
+					obj.temp = Math.random()*70.0; // in degrees F, unless hold is ON
+			}
+			doit( obj );
+		}
+		function doit( o )
+		{
+			document.getElementById("tb_temp").innerHTML 	= o.temp.toFixed(1).toString()+degF;
+			document.getElementById("tb_humidity").innerHTML	= o.humidity.toFixed(1).toString()+"%";
+			document.getElementById("tb_t_heat").innerHTML 	= o.t_heat.toFixed(1).toString()+degF;
+			document.getElementById("tb_tmode").innerHTML 	= o.tmode==0?"OFF":o.tmode==1?"ON":"COLD";
+			document.getElementById("tb_hold").innerHTML 	= o.hold ? "ON" : "OFF";
+			document.getElementById("tb_tstate").innerHTML 	= o.tstate ? "ON" : "OFF";
+					
+			displayLOG( o.temp.toFixed(1).toString() );
+		}
+		function initValues()
+		{
+			document.getElementById("inpHEAT").value 		= obj.t_heat.toFixed(1).toString();
+			document.getElementById("btnHEAT").innerHTML	= obj.tmode ? obj.t_heat.toFixed(1).toString()+degF : "OFF";
+		}
+// ------------------------------------ SLIDERS CODE -------------------------------------------
+		
+		var sliderLOG  = document.getElementById("inpLOG");
+		var sliderSIM  = document.getElementById("inpSIM");
+		var sliderHEAT = document.getElementById("inpHEAT");
+		
+		var valLOG  = document.getElementById( "btnLOG" );
+		var valSIM  = document.getElementById( "btnSIM" );
+		var valHEAT = document.getElementById( "btnHEAT" );
+		
+		// functions below are called as sliders move
+		function changeLOG()
+		{
+			/*
+				slider is in 10sec increments Seconds, 0, 1, 15*10
+				if less than 6 (i.e.60sec) show seconds
+				else show minutes
+			*/
+			if( sliderLOG.value == 0 )
+				valLOG.innerHTML = "OFF";
+			else if( sliderLOG.value < 6 )
+				valLOG.innerHTML = sliderLOG.value*10 + " sec";
+			else 
+				valLOG.innerHTML = Math.floor(sliderLOG.value/6) + " min";			
+		}
+		function changeSIM()
+		{
+			if( sliderSIM.value == -11 )
+				valSIM.innerHTML = "OFF";
+			else
+				valSIM.innerHTML = sliderSIM.value + degF;			
+		}
+		function changeHEAT()
+		{
+			if( sliderHEAT.value == -11 )
+			{
+				valHEAT.innerHTML = "OFF";
+				obj.t_heat = 0.0;
+			}
+			else
+				valHEAT.innerHTML = sliderHEAT.value + degF;
+		}
+// -------------------------------- DISPLAY LOGGER -------------------------------------------
+		
+		var counter = 0;		// counts seconds, but increments by 2sec at a time
+		var started = 0;		// modulo of counter. For example, if 4, logs every 4-seconds
+		var counter = 0;		// counts seconds
+		var started = 0;		// modulo of counter for LOGGING
+		
+		function startLOG()
+		{
+			if( inpLOG.value == 0 )			// stop logging
+			{
+				if( started )				// was it active? Stop it
+					started = 0;
+			}
+			else
+			{		
+				started = inpLOG.value * 10;
+				counter = 0;	
+			
+				//document.getElementById("idtext").innerHTML="";
+				if( started < 60 )
+					document.getElementById("idtext").innerHTML +=" Sec\t"+degF+"\r\n";
+				else
+					document.getElementById("idtext").innerHTML +=" Min\t"+degF+"\r\n";
+			}
+		}
+		function stopLOG()
+		{
+			started = 0;
+		}
+		function displayLOG( text )
+		{
+			if( !started )
+				return;
+		
+			if( (counter % started )==0 )
+			{
+				var txt = document.getElementById('idtext');
+			
+				if( started < 60 )
+					txt.innerHTML += " " + counter + "\t" + text + "\r\n";
+				else
+					txt.innerHTML += " " + counter/60 + "\t" + text + "\r\n";
+				
+				txt.scrollTop = txt.scrollHeight;
+			}
+			counter+=2;		// two second increment
+		}
+// ------------------------------------ SIMULATION CODE -------------------------------------------
+		function startSIM()
+		{
+			//console.log( sliderSIM.value );
+			
+			if( sliderSIM.value == -11 )		// simulation is OFF
+			{
+				if( simul )
+					obj.hold = 0;
+				else
+					execCLI( "simulO" );
+			}
+			else
+			{
+				if( simul )
+				{
+					obj.hold = 1;
+					obj.temp = parseFloat(sliderSIM.value);
+				}
+				else
+					execCLI( "simulF+"+sliderSIM.value );
+			}
+		}
+		// ------------------------------------ TARGET HEAT CODE -------------------------------------------
+		function startHEAT()
+		{
+			if( sliderHEAT.value == -11 )		// simulation is OFF
+			{
+				if( simul )
+					obj.tmode = 0;
+				else
+					execCLI( "heatO" );
+			}
+			else
+			{
+				if( simul )
+				{
+					obj.tmode = 1;
+					obj.t_heat = parseFloat(sliderHEAT.value);
+				}
+				else
+					execCLI( "heatF+"+sliderHEAT.value );
+			}
+		}
+// ------------------------------------ COMMAND EXECUTION CODE -------------------------------------------
+	    function execCLI( cmd )
+		{
+			document.getElementById("idresp").innerHTML = "  ";
+			var request = new XMLHttpRequest();
+			request.onload = handlerCLI;
+			request.open('GET', "/cli?cmd="+cmd );
+			request.send();
+		}
+		function handlerCLI()
+		{
+			if( (this.status == 200)  ) 
+				document.getElementById("idresp").innerHTML = "done";
+		}
+		function toC( F )
+		{
+			return (F-32)*5/9;
+		}
+		function toF( C )
+		{
+			return (C*9/5)+32;
+		}
+	</script>
+
+</body>
+</html>
