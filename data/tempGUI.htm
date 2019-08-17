@@ -328,9 +328,9 @@
 			//console.log( sliderSIM.value );
 			
 			if( sliderSIM.value == -11 )		// simulation is OFF
-				var cmd = "simulF";
+				var cmd = "!simulO";
 			else
-				var cmd = "simulF+"+sliderSIM.value;
+				var cmd = "!simulF+"+sliderSIM.value;
 			execCLI( cmd );
 		}
 		// ------------------------------------ TARGET HEAT CODE -------------------------------------------
@@ -344,7 +344,7 @@
 		{
 			target.value = sliderHEAT.value;
 			//console.log( target.value );
-			var cmd = "targetF+"+target.value;
+			var cmd = "heatF+"+target.value;
 			execCLI( cmd );
 		}
 		// ------------------------------------ COMMAND EXECUTION CODE -------------------------------------------

@@ -6,16 +6,13 @@
 
 #include "nmpClass.h"
 #include "myGlobals.h"
-#include <ds18Class.h>      // in GKE-L2
 
-    Global myp;					// Allocation of the Global parameters
-    NMP nmp;					// Allocation of Named Parms needed by this module    
+    Global  myp;					// Allocation of the Global parameters
+    NMP     nmp;					// Allocation of Named Parms needed by this module    
 
-#ifdef DS18B20					// Allocation of Temp Sensors
     OneWire ds( DS_PIN ); 
-    DS18 temp( &ds );           // associate DS18B20 class with OneWire
-#endif
+    DS18    temp( &ds );            // Allocation of DS18B20 class with OneWire
 
-#ifdef DHT22					// Allocation of Humidity Sensors
-    SimpleDHT22 dht22( DS_PIN );
-#endif
+    HTU21   htu;                    // Allocation of DHU21 temp-humidity sensor
+    
+    SimpleDHT22 dht22( DS_PIN );    // Allocation of Humidity Sensors

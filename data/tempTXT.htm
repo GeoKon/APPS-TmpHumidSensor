@@ -12,7 +12,7 @@
 		td {text-align: center; }
 		th { text-align: center; color:blue;}
 		.LS {text-align: right; border: 1px solid #DDD; }
-		.RS {text-align: left; border: 1px solid #DDD; }
+		.RS {text-align: center; border: 1px solid #DDD; }
 		.slider {
 		  width: 200px; /* Set a specific slider handle width */
 		  cursor: pointer; /* Cursor on hover */
@@ -26,12 +26,14 @@
 	<table align='center'>
 	
 		<tr><th colspan='2'>MEASUREMENTS</th></tr>
-		<tr><td class='LS'>Temp:</td>		<td class='RS' id="tb_temp"></td>		</tr>			
-		<tr><td class='LS'>Humidity:</td>	<td class='RS' id="tb_humidity"></td>		</tr>
+		<tr><td class='LS'>Temp1:</td>		<td class='RS' id="tb_temp"></td>		</tr>
+		<tr><td class='LS'>Temp2:</td>		<td class='RS' id="tb_temp2"></td>		</tr>		
+		<tr><td class='LS'>Humidity:</td>	<td class='RS' id="tb_humidity"></td>	</tr>
 		<tr><td class='LS'>Heat mode:</td>	<td class='RS' id="tb_tmode"></td>		</tr>
 		<tr><td class='LS'>Target:</td>		<td class='RS' id="tb_t_heat"></td> 	</tr>
 		<tr><td class='LS'>Simul:</td>		<td class='RS' id="tb_hold"></td>		</tr>
-		<tr><td class='LS'>Relay:</td>		<td class='RS' id="tb_tstate"></td>	</tr>
+		<tr><td class='LS'>Relay:</td>		<td class='RS' id="tb_tstate"></td>		</tr>
+		<tr><td class='LS'>Sensor:</td>		<td class='RS' id="tb_stype"></td>		</tr>
 
 		<tr><th colspan='2'>LOGGER</th></tr>
 		<tr><td colspan="2" rowspan="10"><textarea id="idtext" rows="8" cols="20" wrap="hard"></textarea></td></tr>
@@ -78,7 +80,7 @@
 
 	<script>
 		var simul = true;
-		var obj = {temp:45.0, tmode:0, t_heat:72.0, tstate:1, hold:0, humidity:10};
+		var obj = { type:2, count:2, temp:41.0, temp2:42.0, tmode:0, t_heat:72.0, tstate:1, hold:0, humidity:10 };
 
 		var degF = " \u2109"; 
 		var degC = " \u2103"; 
@@ -115,11 +117,13 @@
 		function doit( o )
 		{
 			document.getElementById("tb_temp").innerHTML 	= o.temp.toFixed(1).toString()+degF;
-			document.getElementById("tb_humidity").innerHTML	= o.humidity.toFixed(1).toString()+"%";
+			document.getElementById("tb_temp2").innerHTML 	 = (o.type==1 && o.count==2) ? o.temp2.toFixed(1).toString()+degF : "N/A";
+			document.getElementById("tb_humidity").innerHTML = (o.type==2) || (o.type==3) ? (o.humidity.toFixed(0).toString()+"%") : "N/A";
 			document.getElementById("tb_t_heat").innerHTML 	= o.t_heat.toFixed(1).toString()+degF;
-			document.getElementById("tb_tmode").innerHTML 	= o.tmode==0?"OFF":o.tmode==1?"ON":"COLD";
+			document.getElementById("tb_tmode").innerHTML 	= o.tmode==0 ?"OFF":o.tmode==1?"ON":"COLD";
 			document.getElementById("tb_hold").innerHTML 	= o.hold ? "ON" : "OFF";
 			document.getElementById("tb_tstate").innerHTML 	= o.tstate ? "ON" : "OFF";
+			document.getElementById("tb_stype").innerHTML 	= o.type==1?"DS18B20": (o.type==2?"DHT22": (o.type==3?"HTU21D":"none"));
 					
 			displayLOG( o.temp.toFixed(1).toString() );
 		}
@@ -228,7 +232,7 @@
 				if( simul )
 					obj.hold = 0;
 				else
-					execCLI( "simulO" );
+					execCLI( "!simulO" );
 			}
 			else
 			{
@@ -238,7 +242,7 @@
 					obj.temp = parseFloat(sliderSIM.value);
 				}
 				else
-					execCLI( "simulF+"+sliderSIM.value );
+					execCLI( "!simulF+"+sliderSIM.value );
 			}
 		}
 		// ------------------------------------ TARGET HEAT CODE -------------------------------------------

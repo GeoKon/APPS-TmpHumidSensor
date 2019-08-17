@@ -22,13 +22,17 @@ void snfCallbacks( )
         showArgs();
         BUF json(256);
        
-        json.set("{'temp':%.1f, 'tmode':%d, 't_heat':%.1f, 'tstate':%d, 'hold':%d, 'humidity':%.0f}", 
-            /* temp */   myp.tempF,
+        json.set("{'type':%d, 'count':%d, 'temp':%.1f, 'temp2':%.1f, 'tmode':%d, 't_heat':%.1f, 'tstate':%d, 'hold':%d, 'humidity':%.0f}", 
+            /* type */   myp.gp.sensor,
+            /* count */  myp.tempfound,
+            /* temp */   C_TO_F( myp.tempC ),
+            /* temp2 */  C_TO_F( myp.tempC2 ),
             /* tmode */  myp.gp.tmode, 
-            /* t_heat */ myp.gp.threshold*9.0/5.0+32.0, 
+            /* t_heat */ C_TO_F( myp.gp.threshold ),
             /* tstate */ myp.relayON, 
             /* hold */   myp.simulON,
-            /* humidity*/ myp.humidity);            
+            /* humidity*/ myp.humidity            
+            );            
 
         json.quotes();
         showJson( json.c_str() );
@@ -39,7 +43,7 @@ void snfCallbacks( )
         showArgs();
         BUF json(256);
         
-        json.set("{'humidity':%.2f}", myp.humidity );
+        json.set("{'humidity':%.0f}", myp.humidity );
         json.quotes();
         showJson( json.c_str() );
         server.send(200, "application/json", json.c_str() );
