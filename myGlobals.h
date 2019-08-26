@@ -53,16 +53,11 @@
         #define RELAY       12      // NodeMCU D4
     #endif
 
-    #ifdef DS18B20
-        #define TIC_PERIOD   2      // POLLING of sensor in seconds
-    #endif
+#define MAGIC_CODE 0x1447
 
-    #ifdef DHT22
-        #define TIC_PERIOD   5      // POLLING of sensor in seconds
-    #endif
-
-#define MAGIC_CODE 0x1234
-
+float ctof( float X );
+float ftoc( float X );
+    
 // --------------- Definition of Global parameters ---------------------------------
 
     enum wifi_state { TRYING_WIFI=0, STA_MODE=2, AP_MODE=1 };
@@ -101,6 +96,7 @@
 		{                           
             int stream;             // serial display streaming
             sensor_t sensor;        // 0=none, 1=temp, 2=temp/hum
+            int flip;               // flip order of DS18 sensors
             int tmode;              // 0=no_relay 1=heat, 2=cold
             int prdelay;            // propagation delay. Use 0 for no delay
             float threshold;        // always in deg C
@@ -111,6 +107,7 @@
 		{
             gp.stream    = 0;
             gp.sensor    = SENSOR_DS18;
+            gp.flip      = 0;
             gp.tmode     = (thermode_t) RELAY_CONTROL;
             gp.prdelay   = 0;
             gp.threshold = 0.0;
@@ -119,19 +116,20 @@
         void registerMyEEParms()                           // ======= B3. Register parameters by name
         {
             nmp.resetRegistry();
-            nmp.registerParm( "stream",     'd', &gp.stream,    "=%d (0:none 1:streaming ON)"    );
-            nmp.registerParm( "sensor",     'd', &gp.sensor,    "=%d (0:none 1:DS18 2=DHT)"      );
-            nmp.registerParm( "tmode",      'd', &gp.tmode,     "=%d (0:manual 1:heat 2:cool)"    );
-            nmp.registerParm( "prdelay",    'd', &gp.prdelay,   "=%d (0:no smoothing)"          );
-            nmp.registerParm( "target",     'f', &gp.threshold, "=%.1f°C (target temp)"         );
-            nmp.registerParm( "delta",      'f', &gp.delta,     "=%.2f°C (hysterysis)"          );
+            nmp.registerParm( "stream",     'd', &gp.stream,    "0:none 1:streaming ON"    );
+            nmp.registerParm( "sensor",     'd', &gp.sensor,    "0:none 1:DS18 2=DHT 3=HTU" );
+            nmp.registerParm( "flip",       'd', &gp.flip,      "flip DS18 sensors (0 or 1)" );
+            nmp.registerParm( "tmode",      'd', &gp.tmode,     "0:manual 1:heat 2:cool"  );
+            nmp.registerParm( "prdelay",    'd', &gp.prdelay,   "0:no smoothing"          );
+            nmp.registerParm( "target",     'f', &gp.threshold, "target temp deg-F", "%.1f"  );
+            nmp.registerParm( "delta",      'f', &gp.delta,     "hysterysis deg-F",  "%.2f"  );
 			
-			PF("%d named parameters registed\r\n", nmp.nparms );
+			PF("%d named parameters registed\r\n", nmp.getParmCount() );
 			ASSERT( nmp.getSize() == sizeof( gp_t ) );                             // remember the size
         }
         void printMyEEParms( char *prompt="", BUF *bp=NULL ) // ======= B4. Add to buffer (or print) all volatile parms
 		{
-			nmp.printParms( prompt );
+			nmp.printAllParms( prompt );
 		}
 		#include <GLOBAL.hpp>                               // Common code for all Global implementations
 		

@@ -28,7 +28,7 @@ void snfCallbacks( )
             /* temp */   C_TO_F( myp.tempC ),
             /* temp2 */  C_TO_F( myp.tempC2 ),
             /* tmode */  myp.gp.tmode, 
-            /* t_heat */ C_TO_F( myp.gp.threshold ),
+            /* t_heat */ myp.gp.threshold,
             /* tstate */ myp.relayON, 
             /* hold */   myp.simulON,
             /* humidity*/ myp.humidity            
@@ -79,6 +79,7 @@ void snfCallbacks( )
         showJson( json.c_str() );
         server.send(200, "application/json", json.c_str() );
     });
+    // this is redundant to /cli:cmd=cmd+arg+arg
     server.on("/set", HTTP_GET, 
     [](){
         showArgs();
@@ -88,7 +89,7 @@ void snfCallbacks( )
         if( server.args() )                              // if variable is given
         {
             char cmd[80];
-            sprintf( cmd, "uset %s %s", !server.argName(0), !server.arg(0) );
+            sprintf( cmd, "set %s %s", !server.argName(0), !server.arg(0) );
 
             resp.init();                      
             exe.dispatchBuf( cmd, resp );          // command is executed here and RESPONSE1 is saved in 'resp' buffer
@@ -107,8 +108,8 @@ void snfCallbacks( )
 
         s.set("<h3 align='center'>\r\n");
 
-        for( int i=0; i<nmp.nparms; i++ )
-            s.add("%s<br/>\r\n", nmp.getParmString(i).c_str() );
+        for( int i=0; i<nmp.getParmCount(); i++ )
+            s.add("%s = %s<br/>\r\n", nmp.getParmName(i), nmp.getParmValueStr(i) );
 
         s.add("<br/>(Use '/set?parm=value' to modify)<br/>");
         s.add("</h3>\r\n");

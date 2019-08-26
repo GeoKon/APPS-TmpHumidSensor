@@ -32,12 +32,12 @@
     #include <bufClass.h>       // in GKE-L1
     #include <ticClass.h>       // in GKE-L1
     
-//  #include "eepTable.h"       // in GKE-Lw (optional)
     #include "SimpleSRV.h"      // in GKE-Lw
     #include "SimpleSTA.h"      // in GKE-Lw
     
     #include "myGlobals.h"      // in this project. This includes externIO.h
     #include "myEndPoints.h"
+    #include "commonCLI.h"
     #include "myCliHandlers.h"
 
 //------------------ References and Class Allocations ------------------------
@@ -55,12 +55,13 @@
 
 //------------------------- FORWARD REFERENCES -------------------------------
     
-    char *help = "Temperature/humidity reader\r\n";   
+//   char *help = "Temperature/humidity reader\r\n";   
 
-    void blinkLEDAsync( int ms, uint32_t dly=0 );
-    bool startCLIAfter( int ms );
+//    void blinkLEDAsync( int ms, uint32_t dly=0 );
+//    bool startCLIAfter( int ms );
     void relayControl( float T );
     void doTempReady( float C );
+    void checkButton();
 
 // ----------------------------- Main Setup -----------------------------------
 
@@ -77,8 +78,8 @@ void setup()
     ASSERT( SPIFFS.begin() );                   // start the filesystem
 
     myp.initAllParms( MAGIC_CODE );             // initialize volatile & user EEPROM parameters
+    exe.registerTable( cmnTable );              // register common CLI tables
     exe.registerTable( mypTable );              // register tables to CLI
-//  exe.registerTable( eepTable );              // enable if you want!
         
     startCLIAfter( 10/*sec*/, &buffer );        // this also initializes cli(). See SimpleSTA.cpp         
     
@@ -96,7 +97,7 @@ void setup()
     
 //  filter.setPropDelay( myp.gp.prdelay );              // propagation delay 
 
-    setupSTA();                                         // WiFi STA Setup 
+    setupSTA( 30 );                                     // WiFi STA Setup 
     srvCallbacks( server, Landing_STA_Page );           // standard WEB callbacks. "staLanding" is /. HTML page
     cliCallbacks( server, buffer );                     // enable WEB CLI with buffer specified
     snfCallbacks();
@@ -117,6 +118,8 @@ void loop()
 //        cpu.toggleEvery( 250 );
 //    else
         server.handleClient(); 
+    
+    checkButton();                                      // toggle relay of button is pressed
         
     if( cli.ready() )                                   // handle serial interactions
     {
@@ -147,14 +150,15 @@ void loop()
             {
                 float C = temp.getDegreesC();
                 
-                if( myp.tempindex )
-                    myp.tempC2    = C;
+                if( myp.tempindex ^ myp.gp.flip )       // reverse the order if flip is set
+                    myp.tempC2    = C;                  // read C and C2 based on the index
                 else
                     myp.tempC     = C;
-                myp.tempindex = temp.nextID();           // if multiple sensors, get the next one
+
+                myp.tempindex = temp.nextID();         // if multiple sensors, get the next one
                 
                 myp.humidity = -1.0;                   // humidity of <0.0 indicates temp measurement only    
-                relayControl( C );                     // decide what to do with the relay                        
+                relayControl( ctof(C) );               // decide what to do with the relay                        
                 mgnStream();                           // report measurements if streaming is enabled
             }
             else
@@ -171,7 +175,7 @@ void loop()
     
             if( myp.simulON )                                   // simulated temperature
             {
-                C = myp.simulT;
+                C = ftoc( myp.simulT );
                 H = 10.0;
                 err = SimpleDHTErrSuccess;
             }
@@ -187,7 +191,7 @@ void loop()
     
             if( err == SimpleDHTErrSuccess )
             {
-                relayControl( C );                              // decide what to do with the relay        
+                relayControl( ctof(C) );                              // decide what to do with the relay        
                 mgnStream();   
             }
             else
@@ -206,7 +210,7 @@ void loop()
     
             if( myp.simulON )                                   // simulated temperature
             {
-                C = myp.simulT;
+                C = ftoc( myp.simulT );
                 H = 10.0;
             }
             else                                                // actual reading
@@ -218,7 +222,7 @@ void loop()
             myp.tempC2      = 0.0;
             myp.humidity    = H;
 
-            relayControl( C );                                  // decide what to do with the relay        
+            relayControl( ctof(C) );                            // decide what to do with the relay        
             mgnStream(); 
             cpu.led( OFF );
         }
@@ -227,17 +231,31 @@ void loop()
 
 // -------------------------- RELAY CONTROL --------------------------------------------    
 
-    void doTempReady( float C )                       // simulate tempC and tempC2
+    void doTempReady( float F )                       // simulate tempC and tempC2
     {   
-        myp.tempC    = C;                             // filter.smooth( C );
-        myp.tempC2   = C;                       
+        myp.tempC    = ftoc(F);                       // filter.smooth( C );
+        myp.tempC2   = ftoc(F);                       
         myp.humidity = 0.0;
         mgnStream();                                  // stream if streaming is enabled
         
-        relayControl( C );                            // decide what to do with the relay                
+        relayControl( F );                            // decide what to do with the relay                
     }
-    
-    void relayControl( float T )
+    void checkButton()
+    {
+        static bool toggle = false;
+        static uint32_t T0;
+        if( cpu.button() )                            // button pressed
+        {
+            if( (millis()-T0)<1000 )                   // no more than once per second
+                return;
+            T0 = millis();
+            
+            toggle = !toggle;            
+            digitalWrite( RELAY, myp.relayON = toggle );
+            PF("Button set relay %s\r\n", toggle?"ON":"OFF" );
+        }
+    }
+    void relayControl( float F )
     {
         switch (myp.gp.tmode )
         {
@@ -247,16 +265,16 @@ void loop()
                 break;
             
             case COOL_MODE:
-                if( T >= myp.gp.threshold )
+                if( F >= myp.gp.threshold )
                     digitalWrite( RELAY, myp.relayON = true);
-                if( T < myp.gp.threshold-myp.gp.delta )
+                if( F < myp.gp.threshold-myp.gp.delta )
                     digitalWrite( RELAY, myp.relayON = false);
                 break;
     
             case HEAT_MODE:
-                if( T <= myp.gp.threshold )
+                if( F <= myp.gp.threshold )
                     digitalWrite( RELAY, myp.relayON = true );
-                if( T > myp.gp.threshold+myp.gp.delta )
+                if( F > myp.gp.threshold+myp.gp.delta )
                     digitalWrite( RELAY, myp.relayON = false);
                 break;
         }

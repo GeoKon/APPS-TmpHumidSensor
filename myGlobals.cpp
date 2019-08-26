@@ -16,3 +16,6 @@
     HTU21   htu;                    // Allocation of DHU21 temp-humidity sensor
     
     SimpleDHT22 dht22( DS_PIN );    // Allocation of Humidity Sensors
+
+    float ctof( float X ) { return 9.0*X/5.0+32.0; }
+    float ftoc( float X ) { return (X-32.0)*5.0/9.0; }
