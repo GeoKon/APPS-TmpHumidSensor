@@ -1,0 +1,1065 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<meguno-link-project version="1.0">
+  <culture>en-US</culture>
+  <data>
+    <shared-visualizer-data>
+      <data id="SerialMonitorData" name="" instance-id="8e7520db-8e46-4ec4-9dd2-746ba36fff18">
+        <send-cr-default>true</send-cr-default>
+        <send-lf-default>true</send-lf-default>
+        <word-wrap-default>true</word-wrap-default>
+        <include-date>false</include-date>
+        <include-time>true</include-time>
+        <include-custom>false</include-custom>
+        <custom-time-stamp />
+        <clear-on-send>false</clear-on-send>
+        <message-history>
+          <item>h</item>
+          <item>show</item>
+          <item>ushow</item>
+          <item>einit</item>
+          <item>!state</item>
+          <item>ufetch</item>
+          <item>!sensor 1</item>
+          <item>outPIN 16</item>
+          <item>outPIN 12</item>
+          <item>dir</item>
+          <item>get stream sensor tmode</item>
+          <item>set staticIP 192.168.0.117</item>
+          <item>get stream ssid port</item>
+          <item>get stream</item>
+          <item>get sensor </item>
+          <item>get sensor tmode</item>
+          <item>p</item>
+          <item>status</item>
+          <item>initEE</item>
+          <item>jj</item>
+          <item>!show</item>
+          <item>h !</item>
+          <item>b</item>
+          <item>!status</item>
+          <item>w</item>
+          <item>!sensor 7</item>
+          <item>sensor 1</item>
+          <item>!stream 7</item>
+          <item>!sensor 3</item>
+          <item>!wifi</item>
+          <item>oled 0</item>
+          <item>oled 1</item>
+          <item>format</item>
+          <item>restart</item>
+        </message-history>
+      </data>
+      <data id="DefaultPlotConfigurationData" name="" instance-id="b2b6401e-ddd5-4f9d-ad75-7507080d9e8b">
+        <show-summary-table>false</show-summary-table>
+        <show-legend>true</show-legend>
+        <default-symbol-size>4</default-symbol-size>
+        <default-line-width>1</default-line-width>
+        <default-dash-style>Solid</default-dash-style>
+        <default-visibility>true</default-visibility>
+        <next-color>4</next-color>
+        <next-symbol>4</next-symbol>
+        <series-styles>
+          <style name="Temp1">
+            <SeriesStyle xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+              <LineStyle>Solid</LineStyle>
+              <LineColor>Red</LineColor>
+              <LineWidth>1</LineWidth>
+              <SymbolType>Circle</SymbolType>
+              <SymbolColor>Red</SymbolColor>
+              <SymbolSize>4</SymbolSize>
+              <FilledSymbol>false</FilledSymbol>
+              <Visible>true</Visible>
+              <AxisIndex>0</AxisIndex>
+            </SeriesStyle>
+          </style>
+          <style name="Temp2">
+            <SeriesStyle xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+              <LineStyle>Solid</LineStyle>
+              <LineColor>Lime</LineColor>
+              <LineWidth>1</LineWidth>
+              <SymbolType>Diamond</SymbolType>
+              <SymbolColor>Lime</SymbolColor>
+              <SymbolSize>4</SymbolSize>
+              <FilledSymbol>false</FilledSymbol>
+              <Visible>true</Visible>
+              <AxisIndex>-1</AxisIndex>
+            </SeriesStyle>
+          </style>
+          <style name="Temperature">
+            <SeriesStyle xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+              <LineStyle>Solid</LineStyle>
+              <LineColor>Blue</LineColor>
+              <LineWidth>1</LineWidth>
+              <SymbolType>HDash</SymbolType>
+              <SymbolColor>Blue</SymbolColor>
+              <SymbolSize>4</SymbolSize>
+              <FilledSymbol>false</FilledSymbol>
+              <Visible>true</Visible>
+              <AxisIndex>0</AxisIndex>
+            </SeriesStyle>
+          </style>
+          <style name="Humidity">
+            <SeriesStyle xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+              <LineStyle>Solid</LineStyle>
+              <LineColor>Black</LineColor>
+              <LineWidth>1</LineWidth>
+              <SymbolType>Plus</SymbolType>
+              <SymbolColor>Black</SymbolColor>
+              <SymbolSize>4</SymbolSize>
+              <FilledSymbol>false</FilledSymbol>
+              <Visible>true</Visible>
+              <AxisIndex>0</AxisIndex>
+            </SeriesStyle>
+          </style>
+        </series-styles>
+      </data>
+    </shared-visualizer-data>
+  </data>
+  <reporting>
+    <generate-scheduled-reports>false</generate-scheduled-reports>
+    <destinations>
+      <report-to-folder>
+        <last-report-number>0</last-report-number>
+        <folder-path>C:\Users\George Kontopidis\Documents</folder-path>
+        <use-sub-folder>true</use-sub-folder>
+        <sub-folder-pattern>Report {Seq}</sub-folder-pattern>
+        <enabled>true</enabled>
+        <period>PT1H</period>
+        <last-sent>0001-01-01T00:00:00</last-sent>
+      </report-to-folder>
+    </destinations>
+  </reporting>
+  <serial-sources>
+    <default>0</default>
+    <sources>
+      <source type="SharedRS232Port">
+        <id>0</id>
+        <display-name>My Serial Device 0</display-name>
+        <sort-order>0</sort-order>
+        <port-name>
+          <type>Fixed</type>
+          <port>COM5</port>
+        </port-name>
+        <baud-rate>115200</baud-rate>
+        <data-bits>8</data-bits>
+        <handshaking>None</handshaking>
+        <parity>None</parity>
+        <stop-bits>One</stop-bits>
+        <disable-dtr>false</disable-dtr>
+        <disable-rts>false</disable-rts>
+        <reset-toggles-dtr>true</reset-toggles-dtr>
+        <reset-toggles-rts>true</reset-toggles-rts>
+      </source>
+    </sources>
+    <connect-sources />
+  </serial-sources>
+  <windows>
+    <window>
+      <DockPanel FormatVersion="1.0" DockLeftPortion="0.25" DockRightPortion="220" DockTopPortion="0.25" DockBottomPortion="0.25" ActiveDocumentPane="0" ActivePane="0">
+        <Contents Count="3">
+          <Content ID="0" PersistString="SerialMonitor" AutoHidePortion="0.25" IsHidden="False" IsFloat="False">
+            <InsertTimestamp>false</InsertTimestamp>
+            <WordWrap>true</WordWrap>
+            <IncludeDate>false</IncludeDate>
+            <IncludeTime>true</IncludeTime>
+            <IncludeCustom>false</IncludeCustom>
+            <CustomTimeStamp />
+            <AutoScroll>false</AutoScroll>
+            <ShowEOLMarkers>false</ShowEOLMarkers>
+            <ShowLineTime>false</ShowLineTime>
+            <ShowLineDate>false</ShowLineDate>
+            <instance-id>1ddd00bf-49ca-45c6-978f-cef531a366ac</instance-id>
+            <TabTitle>Monitor</TabTitle>
+            <ShowSourceInTitle>false</ShowSourceInTitle>
+            <ShowPortInTitle>false</ShowPortInTitle>
+            <SourceId>0</SourceId>
+          </Content>
+          <Content ID="1" PersistString="SourceManager" AutoHidePortion="0.25" IsHidden="False" IsFloat="False">
+            <instance-id>10cf8d46-a9b4-4a91-bfac-4b7d56306aef</instance-id>
+            <TabTitle>Connection Manager</TabTitle>
+            <ShowSourceInTitle>false</ShowSourceInTitle>
+            <ShowPortInTitle>false</ShowPortInTitle>
+            <SourceId>-1</SourceId>
+          </Content>
+          <Content ID="2" PersistString="InterfacePanel" AutoHidePortion="0.25" IsHidden="False" IsFloat="False">
+            <design type="InterfacePanel">
+              <children child-list="Controls">
+                <component type="System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" name="GroupBox9">
+                  <children child-list="Controls">
+                    <component type="IPControlLibrary.Controls.DynamicLabel, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="status">
+                      <properties>
+                        <property name="BorderStyle">FixedSingle</property>
+                        <property name="ImageAlign">TopLeft</property>
+                        <property name="UseCompatibleTextRendering">True</property>
+                        <property name="BackColor">White</property>
+                        <property name="Font">Courier New, 12pt, style=Bold</property>
+                        <property name="Location">16, 80</property>
+                        <property name="Name">status</property>
+                        <property name="Size">255, 275</property>
+                        <property name="TabIndex">60</property>
+                      </properties>
+                    </component>
+                    <component type="IPControlLibrary.Controls.IPButton, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="IPButton23">
+                      <properties>
+                        <property name="OnClickSend">!wifi\r\n</property>
+                        <property name="OnMouseDownSend" />
+                        <property name="OnMouseUpSend" />
+                        <property name="OnDoubleClickSend" />
+                        <property name="BackColor">Control</property>
+                        <property name="Text">Display System Status</property>
+                        <property name="UseVisualStyleBackColor">False</property>
+                        <property name="Font">Microsoft Sans Serif, 9.75pt, style=Bold</property>
+                        <property name="Location">48, 31</property>
+                        <property name="Name">IPButton23</property>
+                        <property name="Size">174, 37</property>
+                        <property name="TabIndex">42</property>
+                      </properties>
+                    </component>
+                    <component type="IPControlLibrary.Controls.IPTextBox, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="IPTextBox2">
+                      <properties>
+                        <property name="OnTextChangedSend" />
+                        <property name="Text">GKE Aug 2019</property>
+                        <property name="TextAlign">Right</property>
+                        <property name="BackColor">255, 255, 245</property>
+                        <property name="BorderStyle">None</property>
+                        <property name="Font">Microsoft Sans Serif, 12pt</property>
+                        <property name="Location">6, 404</property>
+                        <property name="Name">IPTextBox2</property>
+                        <property name="Size">111, 19</property>
+                        <property name="TabIndex">11</property>
+                      </properties>
+                    </component>
+                  </children>
+                  <properties>
+                    <property name="TabStop">False</property>
+                    <property name="Text">SYSTEM</property>
+                    <property name="BackColor">255, 255, 245</property>
+                    <property name="Font">Microsoft Sans Serif, 9.75pt, style=Italic</property>
+                    <property name="Location">28, 476</property>
+                    <property name="Name">GroupBox9</property>
+                    <property name="Size">282, 444</property>
+                    <property name="TabIndex">71</property>
+                  </properties>
+                </component>
+                <component type="N8I.Visualizers.ccChart, Plotter, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="CHART">
+                  <children child-list="Controls" />
+                  <properties>
+                    <property name="SelectedChannels">
+                      <property name="SelectedIds">
+                        <binary>AAEAAAD/////AQAAAAAAAAARAQAAAAIAAAAGAgAAAAVURU1QMQYDAAAABVRFTVAyCw==</binary>
+                      </property>
+                    </property>
+                    <property name="ShowLegend">True</property>
+                    <property name="ShowSummaryTable">False</property>
+                    <property name="Title">
+                      <property name="Gap">0.3</property>
+                      <property name="Text">Temperature(s) and Humidity</property>
+                      <property name="FontSpec">
+                        <binary>AAEAAAD/////AQAAAAAAAAAMAgAAAFFaZWRHcmFwaCwgVmVyc2lvbj02LjUuMTkwOTQuNDA0LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPTAyYTgzY2JkMTIzZmNkNjAMAwAAAFFTeXN0ZW0uRHJhd2luZywgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWIwM2Y1ZjdmMTFkNTBhM2EFAQAAABFaZWRHcmFwaC5Gb250U3BlYxAAAAAGc2NoZW1hCWZvbnRDb2xvcgZmYW1pbHkGaXNCb2xkCGlzSXRhbGljC2lzVW5kZXJsaW5lC2lzQW50aUFsaWFzBGZpbGwGYm9yZGVyBWFuZ2xlD3N0cmluZ0FsaWdubWVudARzaXplDGlzRHJvcFNoYWRvdw9kcm9wU2hhZG93Q29sb3IPZHJvcFNoYWRvd0FuZ2xlEGRyb3BTaGFkb3dPZmZzZXQABAEAAAAABAQABAAABAAACBRTeXN0ZW0uRHJhd2luZy5Db2xvcgMAAAABAQEBDVplZEdyYXBoLkZpbGwCAAAAD1plZEdyYXBoLkJvcmRlcgIAAAALHlN5c3RlbS5EcmF3aW5nLlN0cmluZ0FsaWdubWVudAMAAAALARRTeXN0ZW0uRHJhd2luZy5Db2xvcgMAAAALCwIAAAAKAAAABfz///8UU3lzdGVtLkRyYXdpbmcuQ29sb3IEAAAABG5hbWUFdmFsdWUKa25vd25Db2xvcgVzdGF0ZQEAAAAJBwcDAAAACgAAAAAAAAAAIwABAAYFAAAAFE1pY3Jvc29mdCBTYW5zIFNlcmlmAQAAAAkGAAAACQcAAAAAAAAABfj///8eU3lzdGVtLkRyYXdpbmcuU3RyaW5nQWxpZ25tZW50AQAAAAd2YWx1ZV9fAAgDAAAAAQAAAAAAgEEAAff////8////CgAAAAAAAAAAIwABAAAANELNzEw9BQYAAAANWmVkR3JhcGguRmlsbA8AAAAGc2NoZW1hBWNvbG9yG3NlY29uZGFyeVZhbHVlR3JhZGllbnRDb2xvcgR0eXBlCGlzU2NhbGVkBmFsaWduSAZhbGlnblYIcmFuZ2VNaW4IcmFuZ2VNYXgJY29sb3JMaXN0DHBvc2l0aW9uTGlzdAVhbmdsZQVpbWFnZQh3cmFwTW9kZQxyYW5nZURlZmF1bHQABAQEAAQEAAACAgACBAAIFFN5c3RlbS5EcmF3aW5nLkNvbG9yAwAAABRTeXN0ZW0uRHJhd2luZy5Db2xvcgMAAAARWmVkR3JhcGguRmlsbFR5cGUCAAAAAQ9aZWRHcmFwaC5BbGlnbkgCAAAAD1plZEdyYXBoLkFsaWduVgIAAAAGBgshU3lzdGVtLkRyYXdpbmcuRHJhd2luZzJELldyYXBNb2RlAwAAAAYCAAAACgAAAAH2/////P///woAAAAAAAAAAKQAAQAB9f////z///8KAAAAAAAAAACkAAEABfT///8RWmVkR3JhcGguRmlsbFR5cGUBAAAAB3ZhbHVlX18ACAIAAAAAAAAAAQXz////D1plZEdyYXBoLkFsaWduSAEAAAAHdmFsdWVfXwAIAgAAAAEAAAAF8v///w9aZWRHcmFwaC5BbGlnblYBAAAAB3ZhbHVlX18ACAIAAAABAAAAAAAAAAAAAAAAAAAAAADwPwoKAAAAAAoF8f///yFTeXN0ZW0uRHJhd2luZy5EcmF3aW5nMkQuV3JhcE1vZGUBAAAAB3ZhbHVlX18ACAMAAAAAAAAA////////738FBwAAAA9aZWRHcmFwaC5Cb3JkZXILAAAAB3NjaGVtYTAFd2lkdGgFc3R5bGUGZGFzaE9uB2Rhc2hPZmYJaXNWaXNpYmxlC2lzQW50aUFsaWFzBWNvbG9yDGdyYWRpZW50RmlsbAZzY2hlbWENaW5mbGF0ZUZhY3RvcgAABAAAAAAEBAAACAsiU3lzdGVtLkRyYXdpbmcuRHJhd2luZzJELkRhc2hTdHlsZQMAAAALCwEBFFN5c3RlbS5EcmF3aW5nLkNvbG9yAwAAAA1aZWRHcmFwaC5GaWxsAgAAAAgLAgAAAAwAAAAAAIA/BfD///8iU3lzdGVtLkRyYXdpbmcuRHJhd2luZzJELkRhc2hTdHlsZQEAAAAHdmFsdWVfXwAIAwAAAAAAAAAAAIA/AACAPwAAAe/////8////CgAAAAAAAAAAIwABAAkSAAAACwAAAAAAAAAFEgAAAA1aZWRHcmFwaC5GaWxsDwAAAAZzY2hlbWEFY29sb3Ibc2Vjb25kYXJ5VmFsdWVHcmFkaWVudENvbG9yBHR5cGUIaXNTY2FsZWQGYWxpZ25IBmFsaWduVghyYW5nZU1pbghyYW5nZU1heAljb2xvckxpc3QMcG9zaXRpb25MaXN0BWFuZ2xlBWltYWdlCHdyYXBNb2RlDHJhbmdlRGVmYXVsdAAEBAQABAQAAAQHAAIEAAgUU3lzdGVtLkRyYXdpbmcuQ29sb3IDAAAAFFN5c3RlbS5EcmF3aW5nLkNvbG9yAwAAABFaZWRHcmFwaC5GaWxsVHlwZQIAAAABD1plZEdyYXBoLkFsaWduSAIAAAAPWmVkR3JhcGguQWxpZ25WAgAAAAYGFlN5c3RlbS5EcmF3aW5nLkNvbG9yW10DAAAACwshU3lzdGVtLkRyYXdpbmcuRHJhd2luZzJELldyYXBNb2RlAwAAAAYCAAAACgAAAAHt/////P///woAAAAAAAAAAKQAAQAB7P////z///8KAAAAAAAAAACkAAEAAev////0////AAAAAAEB6v////P///8BAAAAAen////y////AQAAAAAAAAAAAAAAAAAAAAAA8D8JGAAAAAkZAAAAAAAAAAoB5v////H///8AAAAA////////738HGAAAAAABAAAAAgAAAAQUU3lzdGVtLkRyYXdpbmcuQ29sb3IDAAAAAeX////8////CgAAAAAAAAAAjQABAAHk/////P///woAAAAAAAAAAKQAAQAPGQAAAAIAAAALAAAAAAAAgD8L</binary>
+                      </property>
+                      <property name="IsVisible">True</property>
+                    </property>
+                    <property name="XAxis">
+                      <property name="Type">Ordinal</property>
+                      <property name="Title">
+                        <binary>AAEAAAD/////AQAAAAAAAAAMAgAAAFFaZWRHcmFwaCwgVmVyc2lvbj02LjUuMTkwOTQuNDA0LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPTAyYTgzY2JkMTIzZmNkNjAFAQAAABJaZWRHcmFwaC5BeGlzTGFiZWwJAAAABnNjaGVtYQR0ZXh0CWlzVmlzaWJsZQhmb250U3BlYwdzY2hlbWEyA2dhcAdzY2hlbWEzCWlzT21pdE1hZw5pc1RpdGxlQXRDcm9zcwABAAQAAAAAAAgBEVplZEdyYXBoLkZvbnRTcGVjAgAAAAgLCAEBAgAAAAoAAAAGAwAAAARUaW1lAQkEAAAACgAAAJqZmT4KAAAAAQEMBQAAAFFTeXN0ZW0uRHJhd2luZywgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWIwM2Y1ZjdmMTFkNTBhM2EFBAAAABFaZWRHcmFwaC5Gb250U3BlYxAAAAAGc2NoZW1hCWZvbnRDb2xvcgZmYW1pbHkGaXNCb2xkCGlzSXRhbGljC2lzVW5kZXJsaW5lC2lzQW50aUFsaWFzBGZpbGwGYm9yZGVyBWFuZ2xlD3N0cmluZ0FsaWdubWVudARzaXplDGlzRHJvcFNoYWRvdw9kcm9wU2hhZG93Q29sb3IPZHJvcFNoYWRvd0FuZ2xlEGRyb3BTaGFkb3dPZmZzZXQABAEAAAAABAQABAAABAAACBRTeXN0ZW0uRHJhd2luZy5Db2xvcgUAAAABAQEBDVplZEdyYXBoLkZpbGwCAAAAD1plZEdyYXBoLkJvcmRlcgIAAAALHlN5c3RlbS5EcmF3aW5nLlN0cmluZ0FsaWdubWVudAUAAAALARRTeXN0ZW0uRHJhd2luZy5Db2xvcgUAAAALCwIAAAAKAAAABfr///8UU3lzdGVtLkRyYXdpbmcuQ29sb3IEAAAABG5hbWUFdmFsdWUKa25vd25Db2xvcgVzdGF0ZQEAAAAJBwcFAAAACgAAAAAAAAAAIwABAAYHAAAAFE1pY3Jvc29mdCBTYW5zIFNlcmlmAQAAAAkIAAAACQkAAAAAAAAABfb///8eU3lzdGVtLkRyYXdpbmcuU3RyaW5nQWxpZ25tZW50AQAAAAd2YWx1ZV9fAAgFAAAAAQAAAAAAYEEAAfX////6////CgAAAAAAAAAAIwABAAAANELNzEw9BQgAAAANWmVkR3JhcGguRmlsbA8AAAAGc2NoZW1hBWNvbG9yG3NlY29uZGFyeVZhbHVlR3JhZGllbnRDb2xvcgR0eXBlCGlzU2NhbGVkBmFsaWduSAZhbGlnblYIcmFuZ2VNaW4IcmFuZ2VNYXgJY29sb3JMaXN0DHBvc2l0aW9uTGlzdAVhbmdsZQVpbWFnZQh3cmFwTW9kZQxyYW5nZURlZmF1bHQABAQEAAQEAAACAgACBAAIFFN5c3RlbS5EcmF3aW5nLkNvbG9yBQAAABRTeXN0ZW0uRHJhd2luZy5Db2xvcgUAAAARWmVkR3JhcGguRmlsbFR5cGUCAAAAAQ9aZWRHcmFwaC5BbGlnbkgCAAAAD1plZEdyYXBoLkFsaWduVgIAAAAGBgshU3lzdGVtLkRyYXdpbmcuRHJhd2luZzJELldyYXBNb2RlBQAAAAYCAAAACgAAAAH0////+v///woAAAAAAAAAAKQAAQAB8/////r///8KAAAAAAAAAACkAAEABfL///8RWmVkR3JhcGguRmlsbFR5cGUBAAAAB3ZhbHVlX18ACAIAAAAAAAAAAQXx////D1plZEdyYXBoLkFsaWduSAEAAAAHdmFsdWVfXwAIAgAAAAEAAAAF8P///w9aZWRHcmFwaC5BbGlnblYBAAAAB3ZhbHVlX18ACAIAAAABAAAAAAAAAAAAAAAAAAAAAADwPwoKAAAAAAoF7////yFTeXN0ZW0uRHJhd2luZy5EcmF3aW5nMkQuV3JhcE1vZGUBAAAAB3ZhbHVlX18ACAUAAAAAAAAA////////738FCQAAAA9aZWRHcmFwaC5Cb3JkZXILAAAAB3NjaGVtYTAFd2lkdGgFc3R5bGUGZGFzaE9uB2Rhc2hPZmYJaXNWaXNpYmxlC2lzQW50aUFsaWFzBWNvbG9yDGdyYWRpZW50RmlsbAZzY2hlbWENaW5mbGF0ZUZhY3RvcgAABAAAAAAEBAAACAsiU3lzdGVtLkRyYXdpbmcuRHJhd2luZzJELkRhc2hTdHlsZQUAAAALCwEBFFN5c3RlbS5EcmF3aW5nLkNvbG9yBQAAAA1aZWRHcmFwaC5GaWxsAgAAAAgLAgAAAAwAAAAAAIA/Be7///8iU3lzdGVtLkRyYXdpbmcuRHJhd2luZzJELkRhc2hTdHlsZQEAAAAHdmFsdWVfXwAIBQAAAAAAAAAAAIA/AACAPwAAAe3////6////CgAAAAAAAAAAIwABAAkUAAAACwAAAAAAAAAFFAAAAA1aZWRHcmFwaC5GaWxsDwAAAAZzY2hlbWEFY29sb3Ibc2Vjb25kYXJ5VmFsdWVHcmFkaWVudENvbG9yBHR5cGUIaXNTY2FsZWQGYWxpZ25IBmFsaWduVghyYW5nZU1pbghyYW5nZU1heAljb2xvckxpc3QMcG9zaXRpb25MaXN0BWFuZ2xlBWltYWdlCHdyYXBNb2RlDHJhbmdlRGVmYXVsdAAEBAQABAQAAAQHAAIEAAgUU3lzdGVtLkRyYXdpbmcuQ29sb3IFAAAAFFN5c3RlbS5EcmF3aW5nLkNvbG9yBQAAABFaZWRHcmFwaC5GaWxsVHlwZQIAAAABD1plZEdyYXBoLkFsaWduSAIAAAAPWmVkR3JhcGguQWxpZ25WAgAAAAYGFlN5c3RlbS5EcmF3aW5nLkNvbG9yW10FAAAACwshU3lzdGVtLkRyYXdpbmcuRHJhd2luZzJELldyYXBNb2RlBQAAAAYCAAAACgAAAAHr////+v///woAAAAAAAAAAKQAAQAB6v////r///8KAAAAAAAAAACkAAEAAen////y////AAAAAAEB6P////H///8BAAAAAef////w////AQAAAAAAAAAAAAAAAAAAAAAA8D8JGgAAAAkbAAAAAAAAAAoB5P///+////8AAAAA////////738HGgAAAAABAAAAAgAAAAQUU3lzdGVtLkRyYXdpbmcuQ29sb3IFAAAAAeP////6////CgAAAAAAAAAAjQABAAHi////+v///woAAAAAAAAAAKQAAQAPGwAAAAIAAAALAAAAAAAAgD8L</binary>
+                      </property>
+                    </property>
+                    <property name="YAxis">
+                      <property name="Type">Linear</property>
+                      <property name="Title">
+                        <binary>AAEAAAD/////AQAAAAAAAAAMAgAAAFFaZWRHcmFwaCwgVmVyc2lvbj02LjUuMTkwOTQuNDA0LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPTAyYTgzY2JkMTIzZmNkNjAFAQAAABJaZWRHcmFwaC5BeGlzTGFiZWwJAAAABnNjaGVtYQR0ZXh0CWlzVmlzaWJsZQhmb250U3BlYwdzY2hlbWEyA2dhcAdzY2hlbWEzCWlzT21pdE1hZw5pc1RpdGxlQXRDcm9zcwABAAQAAAAAAAgBEVplZEdyYXBoLkZvbnRTcGVjAgAAAAgLCAEBAgAAAAoAAAAGAwAAABNUZW1wZXJhdHVyZSAoZGVnIEYpAQkEAAAACgAAAJqZmT4KAAAAAQEMBQAAAFFTeXN0ZW0uRHJhd2luZywgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWIwM2Y1ZjdmMTFkNTBhM2EFBAAAABFaZWRHcmFwaC5Gb250U3BlYxAAAAAGc2NoZW1hCWZvbnRDb2xvcgZmYW1pbHkGaXNCb2xkCGlzSXRhbGljC2lzVW5kZXJsaW5lC2lzQW50aUFsaWFzBGZpbGwGYm9yZGVyBWFuZ2xlD3N0cmluZ0FsaWdubWVudARzaXplDGlzRHJvcFNoYWRvdw9kcm9wU2hhZG93Q29sb3IPZHJvcFNoYWRvd0FuZ2xlEGRyb3BTaGFkb3dPZmZzZXQABAEAAAAABAQABAAABAAACBRTeXN0ZW0uRHJhd2luZy5Db2xvcgUAAAABAQEBDVplZEdyYXBoLkZpbGwCAAAAD1plZEdyYXBoLkJvcmRlcgIAAAALHlN5c3RlbS5EcmF3aW5nLlN0cmluZ0FsaWdubWVudAUAAAALARRTeXN0ZW0uRHJhd2luZy5Db2xvcgUAAAALCwIAAAAKAAAABfr///8UU3lzdGVtLkRyYXdpbmcuQ29sb3IEAAAABG5hbWUFdmFsdWUKa25vd25Db2xvcgVzdGF0ZQEAAAAJBwcFAAAACgAAAAAAAAAAIwABAAYHAAAAFE1pY3Jvc29mdCBTYW5zIFNlcmlmAQAAAAkIAAAACQkAAAAAADTDBfb///8eU3lzdGVtLkRyYXdpbmcuU3RyaW5nQWxpZ25tZW50AQAAAAd2YWx1ZV9fAAgFAAAAAQAAAAAAYEEAAfX////6////CgAAAAAAAAAAIwABAAAANELNzEw9BQgAAAANWmVkR3JhcGguRmlsbA8AAAAGc2NoZW1hBWNvbG9yG3NlY29uZGFyeVZhbHVlR3JhZGllbnRDb2xvcgR0eXBlCGlzU2NhbGVkBmFsaWduSAZhbGlnblYIcmFuZ2VNaW4IcmFuZ2VNYXgJY29sb3JMaXN0DHBvc2l0aW9uTGlzdAVhbmdsZQVpbWFnZQh3cmFwTW9kZQxyYW5nZURlZmF1bHQABAQEAAQEAAACAgACBAAIFFN5c3RlbS5EcmF3aW5nLkNvbG9yBQAAABRTeXN0ZW0uRHJhd2luZy5Db2xvcgUAAAARWmVkR3JhcGguRmlsbFR5cGUCAAAAAQ9aZWRHcmFwaC5BbGlnbkgCAAAAD1plZEdyYXBoLkFsaWduVgIAAAAGBgshU3lzdGVtLkRyYXdpbmcuRHJhd2luZzJELldyYXBNb2RlBQAAAAYCAAAACgAAAAH0////+v///woAAAAAAAAAAKQAAQAB8/////r///8KAAAAAAAAAACkAAEABfL///8RWmVkR3JhcGguRmlsbFR5cGUBAAAAB3ZhbHVlX18ACAIAAAAAAAAAAQXx////D1plZEdyYXBoLkFsaWduSAEAAAAHdmFsdWVfXwAIAgAAAAEAAAAF8P///w9aZWRHcmFwaC5BbGlnblYBAAAAB3ZhbHVlX18ACAIAAAABAAAAAAAAAAAAAAAAAAAAAADwPwoKAAAAAAoF7////yFTeXN0ZW0uRHJhd2luZy5EcmF3aW5nMkQuV3JhcE1vZGUBAAAAB3ZhbHVlX18ACAUAAAAAAAAA////////738FCQAAAA9aZWRHcmFwaC5Cb3JkZXILAAAAB3NjaGVtYTAFd2lkdGgFc3R5bGUGZGFzaE9uB2Rhc2hPZmYJaXNWaXNpYmxlC2lzQW50aUFsaWFzBWNvbG9yDGdyYWRpZW50RmlsbAZzY2hlbWENaW5mbGF0ZUZhY3RvcgAABAAAAAAEBAAACAsiU3lzdGVtLkRyYXdpbmcuRHJhd2luZzJELkRhc2hTdHlsZQUAAAALCwEBFFN5c3RlbS5EcmF3aW5nLkNvbG9yBQAAAA1aZWRHcmFwaC5GaWxsAgAAAAgLAgAAAAwAAAAAAIA/Be7///8iU3lzdGVtLkRyYXdpbmcuRHJhd2luZzJELkRhc2hTdHlsZQEAAAAHdmFsdWVfXwAIBQAAAAAAAAAAAIA/AACAPwAAAe3////6////CgAAAAAAAAAAIwABAAkUAAAACwAAAAAAAAAFFAAAAA1aZWRHcmFwaC5GaWxsDwAAAAZzY2hlbWEFY29sb3Ibc2Vjb25kYXJ5VmFsdWVHcmFkaWVudENvbG9yBHR5cGUIaXNTY2FsZWQGYWxpZ25IBmFsaWduVghyYW5nZU1pbghyYW5nZU1heAljb2xvckxpc3QMcG9zaXRpb25MaXN0BWFuZ2xlBWltYWdlCHdyYXBNb2RlDHJhbmdlRGVmYXVsdAAEBAQABAQAAAQHAAIEAAgUU3lzdGVtLkRyYXdpbmcuQ29sb3IFAAAAFFN5c3RlbS5EcmF3aW5nLkNvbG9yBQAAABFaZWRHcmFwaC5GaWxsVHlwZQIAAAABD1plZEdyYXBoLkFsaWduSAIAAAAPWmVkR3JhcGguQWxpZ25WAgAAAAYGFlN5c3RlbS5EcmF3aW5nLkNvbG9yW10FAAAACwshU3lzdGVtLkRyYXdpbmcuRHJhd2luZzJELldyYXBNb2RlBQAAAAYCAAAACgAAAAHr////+v///woAAAAAAAAAAKQAAQAB6v////r///8KAAAAAAAAAACkAAEAAen////y////AAAAAAEB6P////H///8BAAAAAef////w////AQAAAAAAAAAAAAAAAAAAAAAA8D8JGgAAAAkbAAAAAAAAAAoB5P///+////8AAAAA////////738HGgAAAAABAAAAAgAAAAQUU3lzdGVtLkRyYXdpbmcuQ29sb3IFAAAAAeP////6////CgAAAAAAAAAAjQABAAHi////+v///woAAAAAAAAAAKQAAQAPGwAAAAIAAAALAAAAAAAAgD8L</binary>
+                      </property>
+                    </property>
+                    <property name="ChartBackground">
+                      <property name="Color1">255, 255, 255</property>
+                      <property name="Color2">255, 255, 255</property>
+                      <property name="FillAngle">0</property>
+                    </property>
+                    <property name="ChartForeground">
+                      <property name="Color1">192, 255, 255</property>
+                      <property name="Color2">255, 255, 210</property>
+                      <property name="FillAngle">-45</property>
+                    </property>
+                    <property name="ReportEnabled">True</property>
+                    <property name="ShowExamplesButton">False</property>
+                    <property name="ContentName">Time Plot</property>
+                    <property name="Location">434, 55</property>
+                    <property name="Name">CHART</property>
+                    <property name="Size">885, 415</property>
+                    <property name="TabIndex">70</property>
+                    <property name="UseWaitCursor">True</property>
+                  </properties>
+                </component>
+                <component type="System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" name="GroupBox6">
+                  <children child-list="Controls">
+                    <component type="IPControlLibrary.Controls.IPButton, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="IPButton20">
+                      <properties>
+                        <property name="OnClickSend">!relay 0\r\n</property>
+                        <property name="OnMouseDownSend" />
+                        <property name="OnMouseUpSend" />
+                        <property name="OnDoubleClickSend" />
+                        <property name="BackColor">Control</property>
+                        <property name="Text">Relay OFF</property>
+                        <property name="UseVisualStyleBackColor">False</property>
+                        <property name="Font">Microsoft Sans Serif, 9.75pt, style=Bold</property>
+                        <property name="Location">255, 30</property>
+                        <property name="Name">IPButton20</property>
+                        <property name="Size">114, 34</property>
+                        <property name="TabIndex">41</property>
+                      </properties>
+                    </component>
+                    <component type="IPControlLibrary.Controls.IPButton, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="IPButton21">
+                      <properties>
+                        <property name="OnClickSend">!relay 1\r\n</property>
+                        <property name="OnMouseDownSend" />
+                        <property name="OnMouseUpSend" />
+                        <property name="OnDoubleClickSend" />
+                        <property name="BackColor">Control</property>
+                        <property name="Text">Relay ON</property>
+                        <property name="UseVisualStyleBackColor">False</property>
+                        <property name="Font">Microsoft Sans Serif, 9.75pt, style=Bold</property>
+                        <property name="Location">110, 30</property>
+                        <property name="Name">IPButton21</property>
+                        <property name="Size">128, 34</property>
+                        <property name="TabIndex">40</property>
+                      </properties>
+                    </component>
+                    <component type="System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" name="Label10">
+                      <properties>
+                        <property name="Text">Slide to simulate measurments in deg-F</property>
+                        <property name="Font">Microsoft Sans Serif, 9.75pt</property>
+                        <property name="Location">27, 86</property>
+                        <property name="Name">Label10</property>
+                        <property name="Size">255, 23</property>
+                        <property name="TabIndex">65</property>
+                      </properties>
+                    </component>
+                    <component type="IPControlLibrary.Controls.IPButton, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="IPButton24">
+                      <properties>
+                        <property name="OnClickSend">!simul OFF\r\n</property>
+                        <property name="OnMouseDownSend" />
+                        <property name="OnMouseUpSend" />
+                        <property name="OnDoubleClickSend" />
+                        <property name="BackColor">Control</property>
+                        <property name="Text">Normal</property>
+                        <property name="UseVisualStyleBackColor">False</property>
+                        <property name="Font">Microsoft Sans Serif, 9.75pt, style=Bold</property>
+                        <property name="Location">299, 143</property>
+                        <property name="Name">IPButton24</property>
+                        <property name="Size">82, 32</property>
+                        <property name="TabIndex">35</property>
+                      </properties>
+                    </component>
+                    <component type="IPControlLibrary.Controls.TrackBarWithIndicator, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="simulF">
+                      <children child-list="Controls" />
+                      <properties>
+                        <property name="ValueChangedCommandName">!simulF [simulF.Value]\r\n</property>
+                        <property name="DelaySendingChanges">True</property>
+                        <property name="Minimum">-20</property>
+                        <property name="Maximum">120</property>
+                        <property name="BorderStyle">FixedSingle</property>
+                        <property name="BackColor">White</property>
+                        <property name="Location">27, 112</property>
+                        <property name="Name">simulF</property>
+                        <property name="Size">255, 23</property>
+                        <property name="TabIndex">33</property>
+                      </properties>
+                    </component>
+                    <component type="IPControlLibrary.Controls.IPButton, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="IPButton25">
+                      <properties>
+                        <property name="OnClickSend">!simul [simulF.Value]F\r\n</property>
+                        <property name="OnMouseDownSend" />
+                        <property name="OnMouseUpSend" />
+                        <property name="OnDoubleClickSend" />
+                        <property name="BackColor">Control</property>
+                        <property name="Text">Simulate</property>
+                        <property name="UseVisualStyleBackColor">False</property>
+                        <property name="Font">Microsoft Sans Serif, 9.75pt, style=Bold</property>
+                        <property name="Location">299, 105</property>
+                        <property name="Name">IPButton25</property>
+                        <property name="Size">82, 32</property>
+                        <property name="TabIndex">34</property>
+                      </properties>
+                    </component>
+                  </children>
+                  <properties>
+                    <property name="TabStop">False</property>
+                    <property name="Text">CONTROLS</property>
+                    <property name="BackColor">255, 255, 245</property>
+                    <property name="Font">Microsoft Sans Serif, 9.75pt, style=Italic</property>
+                    <property name="Location">28, 261</property>
+                    <property name="Name">GroupBox6</property>
+                    <property name="Size">400, 209</property>
+                    <property name="TabIndex">69</property>
+                  </properties>
+                </component>
+                <component type="IPControlLibrary.Controls.IPTextBox, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="IPTextBox1">
+                  <properties>
+                    <property name="OnTextChangedSend" />
+                    <property name="Text">Temperature-Humidity Multi-Sensor IoT</property>
+                    <property name="TextAlign">Center</property>
+                    <property name="BackColor">Control</property>
+                    <property name="BorderStyle">None</property>
+                    <property name="Font">Microsoft Sans Serif, 15.75pt, style=Bold</property>
+                    <property name="Location">235, 3</property>
+                    <property name="Name">IPTextBox1</property>
+                    <property name="Size">819, 24</property>
+                    <property name="TabIndex">10</property>
+                  </properties>
+                </component>
+                <component type="System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" name="GroupBox4">
+                  <children child-list="Controls">
+                    <component type="IPControlLibrary.Controls.IPButton, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="IPButton29">
+                      <properties>
+                        <property name="OnClickSend">!stream 7\r\n</property>
+                        <property name="OnMouseDownSend" />
+                        <property name="OnMouseUpSend" />
+                        <property name="OnDoubleClickSend" />
+                        <property name="BackColor">Control</property>
+                        <property name="Text">Display &amp; Graph</property>
+                        <property name="UseVisualStyleBackColor">False</property>
+                        <property name="Font">Microsoft Sans Serif, 9.75pt, style=Bold</property>
+                        <property name="Location">197, 28</property>
+                        <property name="Name">IPButton29</property>
+                        <property name="Size">73, 52</property>
+                        <property name="TabIndex">61</property>
+                      </properties>
+                    </component>
+                    <component type="IPControlLibrary.Controls.IPButton, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="IPButton10">
+                      <properties>
+                        <property name="OnClickSend">!read\r\n</property>
+                        <property name="OnMouseDownSend" />
+                        <property name="OnMouseUpSend" />
+                        <property name="OnDoubleClickSend" />
+                        <property name="BackColor">Control</property>
+                        <property name="Text">Read &amp; Update</property>
+                        <property name="UseVisualStyleBackColor">False</property>
+                        <property name="Font">Microsoft Sans Serif, 9.75pt, style=Bold</property>
+                        <property name="Location">18, 28</property>
+                        <property name="Name">IPButton10</property>
+                        <property name="Size">77, 52</property>
+                        <property name="TabIndex">30</property>
+                      </properties>
+                    </component>
+                    <component type="IPControlLibrary.Controls.DynamicLabel, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="stream2">
+                      <properties>
+                        <property name="BorderStyle">FixedSingle</property>
+                        <property name="TextAlign">MiddleCenter</property>
+                        <property name="BackColor">255, 255, 230</property>
+                        <property name="Font">Microsoft Sans Serif, 12pt, style=Bold</property>
+                        <property name="Location">18, 146</property>
+                        <property name="Name">stream2</property>
+                        <property name="Size">363, 32</property>
+                        <property name="TabIndex">60</property>
+                      </properties>
+                    </component>
+                    <component type="IPControlLibrary.Controls.DynamicLabel, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="stream1">
+                      <properties>
+                        <property name="BorderStyle">FixedSingle</property>
+                        <property name="TextAlign">MiddleCenter</property>
+                        <property name="BackColor">255, 255, 192</property>
+                        <property name="Font">Microsoft Sans Serif, 14.25pt, style=Bold</property>
+                        <property name="Location">18, 103</property>
+                        <property name="Name">stream1</property>
+                        <property name="Size">363, 32</property>
+                        <property name="TabIndex">59</property>
+                      </properties>
+                    </component>
+                    <component type="IPControlLibrary.Controls.IPButton, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="IPButton19">
+                      <properties>
+                        <property name="OnClickSend">[stream1.Text=stream2.Text=""]\r\n!stream 0\r\n</property>
+                        <property name="OnMouseDownSend" />
+                        <property name="OnMouseUpSend" />
+                        <property name="OnDoubleClickSend" />
+                        <property name="BackColor">Control</property>
+                        <property name="Text">Stop Streaming</property>
+                        <property name="UseVisualStyleBackColor">False</property>
+                        <property name="Font">Microsoft Sans Serif, 9.75pt, style=Bold</property>
+                        <property name="Location">287, 28</property>
+                        <property name="Name">IPButton19</property>
+                        <property name="Size">94, 52</property>
+                        <property name="TabIndex">32</property>
+                      </properties>
+                    </component>
+                    <component type="IPControlLibrary.Controls.IPButton, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="IPButton18">
+                      <properties>
+                        <property name="OnClickSend">!stream 3\r\n</property>
+                        <property name="OnMouseDownSend" />
+                        <property name="OnMouseUpSend" />
+                        <property name="OnDoubleClickSend" />
+                        <property name="BackColor">Control</property>
+                        <property name="Text">Stream Display</property>
+                        <property name="UseVisualStyleBackColor">False</property>
+                        <property name="Font">Microsoft Sans Serif, 9.75pt, style=Bold</property>
+                        <property name="Location">110, 28</property>
+                        <property name="Name">IPButton18</property>
+                        <property name="Size">73, 52</property>
+                        <property name="TabIndex">31</property>
+                      </properties>
+                    </component>
+                  </children>
+                  <properties>
+                    <property name="TabStop">False</property>
+                    <property name="Text">MEASUREMENTS</property>
+                    <property name="BackColor">255, 255, 245</property>
+                    <property name="Font">Microsoft Sans Serif, 9.75pt, style=Italic</property>
+                    <property name="Location">28, 55</property>
+                    <property name="Name">GroupBox4</property>
+                    <property name="Size">400, 200</property>
+                    <property name="TabIndex">58</property>
+                  </properties>
+                </component>
+                <component type="System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" name="GroupBox3">
+                  <children child-list="Controls">
+                    <component type="System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" name="GroupBox10">
+                      <children child-list="Controls">
+                        <component type="IPControlLibrary.Controls.IPButton, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="IPButton28">
+                          <properties>
+                            <property name="OnClickSend">!oled 0\r\n</property>
+                            <property name="OnMouseDownSend" />
+                            <property name="OnMouseUpSend" />
+                            <property name="OnDoubleClickSend" />
+                            <property name="BackColor">Control</property>
+                            <property name="Text">OFF</property>
+                            <property name="UseVisualStyleBackColor">False</property>
+                            <property name="Font">Microsoft Sans Serif, 9.75pt, style=Bold</property>
+                            <property name="Location">6, 63</property>
+                            <property name="Name">IPButton28</property>
+                            <property name="Size">110, 35</property>
+                            <property name="TabIndex">62</property>
+                          </properties>
+                        </component>
+                        <component type="IPControlLibrary.Controls.IPButton, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="IPButton27">
+                          <properties>
+                            <property name="OnClickSend">!oled 1\r\n</property>
+                            <property name="OnMouseDownSend" />
+                            <property name="OnMouseUpSend" />
+                            <property name="OnDoubleClickSend" />
+                            <property name="BackColor">Control</property>
+                            <property name="Text">ON</property>
+                            <property name="UseVisualStyleBackColor">False</property>
+                            <property name="Font">Microsoft Sans Serif, 9.75pt, style=Bold</property>
+                            <property name="Location">6, 22</property>
+                            <property name="Name">IPButton27</property>
+                            <property name="Size">110, 35</property>
+                            <property name="TabIndex">61</property>
+                          </properties>
+                        </component>
+                      </children>
+                      <properties>
+                        <property name="TabStop">False</property>
+                        <property name="Text">OLED</property>
+                        <property name="BackColor">255, 255, 220</property>
+                        <property name="Location">14, 269</property>
+                        <property name="Name">GroupBox10</property>
+                        <property name="Size">129, 116</property>
+                        <property name="TabIndex">72</property>
+                      </properties>
+                    </component>
+                    <component type="System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" name="GroupBox7">
+                      <children child-list="Controls">
+                        <component type="IPControlLibrary.Controls.IPButton, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="IPButton4">
+                          <properties>
+                            <property name="OnClickSend">!sensor 3\r\n</property>
+                            <property name="OnMouseDownSend" />
+                            <property name="OnMouseUpSend" />
+                            <property name="OnDoubleClickSend" />
+                            <property name="BackColor">Control</property>
+                            <property name="Text">HTU21D</property>
+                            <property name="UseVisualStyleBackColor">False</property>
+                            <property name="Font">Microsoft Sans Serif, 9.75pt, style=Bold</property>
+                            <property name="Location">6, 167</property>
+                            <property name="Name">IPButton4</property>
+                            <property name="Size">110, 35</property>
+                            <property name="TabIndex">70</property>
+                          </properties>
+                        </component>
+                        <component type="IPControlLibrary.Controls.IPButton, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="IPButton5">
+                          <properties>
+                            <property name="OnClickSend">!sensor 0\r\n</property>
+                            <property name="OnMouseDownSend" />
+                            <property name="OnMouseUpSend" />
+                            <property name="OnDoubleClickSend" />
+                            <property name="BackColor">Control</property>
+                            <property name="FlatStyle">Popup</property>
+                            <property name="Text">NO SENSOR</property>
+                            <property name="UseVisualStyleBackColor">True</property>
+                            <property name="Font">Microsoft Sans Serif, 9.75pt, style=Bold</property>
+                            <property name="Location">6, 44</property>
+                            <property name="Name">IPButton5</property>
+                            <property name="Size">110, 35</property>
+                            <property name="TabIndex">67</property>
+                          </properties>
+                        </component>
+                        <component type="IPControlLibrary.Controls.IPButton, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="IPButton6">
+                          <properties>
+                            <property name="OnClickSend">!sensor 2\r\n</property>
+                            <property name="OnMouseDownSend" />
+                            <property name="OnMouseUpSend" />
+                            <property name="OnDoubleClickSend" />
+                            <property name="BackColor">Control</property>
+                            <property name="Text">DHT22</property>
+                            <property name="UseVisualStyleBackColor">False</property>
+                            <property name="Font">Microsoft Sans Serif, 9.75pt, style=Bold</property>
+                            <property name="Location">6, 126</property>
+                            <property name="Name">IPButton6</property>
+                            <property name="Size">110, 35</property>
+                            <property name="TabIndex">69</property>
+                          </properties>
+                        </component>
+                        <component type="IPControlLibrary.Controls.IPButton, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="IPButton7">
+                          <properties>
+                            <property name="OnClickSend">!sensor 1\r\n</property>
+                            <property name="OnMouseDownSend" />
+                            <property name="OnMouseUpSend" />
+                            <property name="OnDoubleClickSend" />
+                            <property name="BackColor">Control</property>
+                            <property name="Text">DS18B20</property>
+                            <property name="UseVisualStyleBackColor">False</property>
+                            <property name="Font">Microsoft Sans Serif, 9.75pt, style=Bold</property>
+                            <property name="Location">6, 85</property>
+                            <property name="Name">IPButton7</property>
+                            <property name="Size">110, 35</property>
+                            <property name="TabIndex">68</property>
+                          </properties>
+                        </component>
+                      </children>
+                      <properties>
+                        <property name="TabStop">False</property>
+                        <property name="Text">SENSORS</property>
+                        <property name="BackColor">255, 255, 220</property>
+                        <property name="Font">Microsoft Sans Serif, 9.75pt, style=Italic</property>
+                        <property name="Location">14, 46</property>
+                        <property name="Name">GroupBox7</property>
+                        <property name="Size">129, 217</property>
+                        <property name="TabIndex">71</property>
+                      </properties>
+                    </component>
+                    <component type="System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" name="GroupBox2">
+                      <children child-list="Controls">
+                        <component type="System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" name="Label9">
+                          <properties>
+                            <property name="Text">Set smoothing filter (samples to 90% target)</property>
+                            <property name="Font">Microsoft Sans Serif, 9.75pt</property>
+                            <property name="Location">19, 219</property>
+                            <property name="Name">Label9</property>
+                            <property name="Size">224, 23</property>
+                            <property name="TabIndex">73</property>
+                          </properties>
+                        </component>
+                        <component type="IPControlLibrary.Controls.TrackBarWithIndicator, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="heatS">
+                          <children child-list="Controls" />
+                          <properties>
+                            <property name="DelaySendingChanges">True</property>
+                            <property name="Minimum">-20</property>
+                            <property name="Maximum">120</property>
+                            <property name="BorderStyle">FixedSingle</property>
+                            <property name="BackColor">White</property>
+                            <property name="Location">19, 174</property>
+                            <property name="Name">heatS</property>
+                            <property name="Size">255, 23</property>
+                            <property name="TabIndex">66</property>
+                          </properties>
+                        </component>
+                        <component type="IPControlLibrary.Controls.IPButton, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="IPButton26">
+                          <properties>
+                            <property name="OnClickSend">!filter [filterS.Value]\r\n</property>
+                            <property name="OnMouseDownSend" />
+                            <property name="OnMouseUpSend" />
+                            <property name="OnDoubleClickSend" />
+                            <property name="BackColor">Control</property>
+                            <property name="Text">Set Filter</property>
+                            <property name="UseVisualStyleBackColor">False</property>
+                            <property name="Location">290, 245</property>
+                            <property name="Name">IPButton26</property>
+                            <property name="Size">82, 23</property>
+                            <property name="TabIndex">74</property>
+                          </properties>
+                        </component>
+                        <component type="System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" name="Label15">
+                          <properties>
+                            <property name="Text">equal to</property>
+                            <property name="Font">Microsoft Sans Serif, 9.75pt</property>
+                            <property name="Location">125, 97</property>
+                            <property name="Name">Label15</property>
+                            <property name="Size">58, 23</property>
+                            <property name="TabIndex">60</property>
+                          </properties>
+                        </component>
+                        <component type="IPControlLibrary.Controls.TrackBarWithIndicator, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="filterS">
+                          <children child-list="Controls" />
+                          <properties>
+                            <property name="DelaySendingChanges">True</property>
+                            <property name="Maximum">50</property>
+                            <property name="BorderStyle">FixedSingle</property>
+                            <property name="BackColor">White</property>
+                            <property name="Location">19, 245</property>
+                            <property name="Name">filterS</property>
+                            <property name="Size">255, 23</property>
+                            <property name="TabIndex">72</property>
+                          </properties>
+                        </component>
+                        <component type="IPControlLibrary.Controls.IPButton, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="IPButton2">
+                          <properties>
+                            <property name="OnClickSend">!heat [heatS.Value]F\r\n</property>
+                            <property name="OnMouseDownSend" />
+                            <property name="OnMouseUpSend" />
+                            <property name="OnDoubleClickSend" />
+                            <property name="BackColor">Control</property>
+                            <property name="Text">Set Target</property>
+                            <property name="UseVisualStyleBackColor">False</property>
+                            <property name="Location">290, 174</property>
+                            <property name="Name">IPButton2</property>
+                            <property name="Size">82, 23</property>
+                            <property name="TabIndex">68</property>
+                          </properties>
+                        </component>
+                        <component type="IPControlLibrary.Controls.IPTextBox, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="uName">
+                          <properties>
+                            <property name="OnTextChangedSend" />
+                            <property name="TextAlign">Center</property>
+                            <property name="Font">Microsoft Sans Serif, 9.75pt, style=Bold</property>
+                            <property name="Location">37, 96</property>
+                            <property name="Name">uName</property>
+                            <property name="Size">82, 22</property>
+                            <property name="TabIndex">63</property>
+                          </properties>
+                        </component>
+                        <component type="IPControlLibrary.Controls.IPButton, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="IPButton12">
+                          <properties>
+                            <property name="OnClickSend">!initEE\r\n</property>
+                            <property name="OnMouseDownSend" />
+                            <property name="OnMouseUpSend" />
+                            <property name="OnDoubleClickSend" />
+                            <property name="BackColor">Control</property>
+                            <property name="Text">Initialize and Save Parameters</property>
+                            <property name="UseVisualStyleBackColor">False</property>
+                            <property name="Font">Microsoft Sans Serif, 9.75pt, style=Bold</property>
+                            <property name="Location">19, 34</property>
+                            <property name="Name">IPButton12</property>
+                            <property name="Size">164, 41</property>
+                            <property name="TabIndex">57</property>
+                          </properties>
+                        </component>
+                        <component type="System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" name="Label11">
+                          <properties>
+                            <property name="Text">Set target heating temp in deg-F</property>
+                            <property name="Font">Microsoft Sans Serif, 9.75pt</property>
+                            <property name="Location">19, 148</property>
+                            <property name="Name">Label11</property>
+                            <property name="Size">224, 23</property>
+                            <property name="TabIndex">67</property>
+                          </properties>
+                        </component>
+                        <component type="System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" name="Label16">
+                          <properties>
+                            <property name="Text">Set</property>
+                            <property name="Font">Microsoft Sans Serif, 9.75pt</property>
+                            <property name="Location">9, 96</property>
+                            <property name="Name">Label16</property>
+                            <property name="Size">36, 23</property>
+                            <property name="TabIndex">59</property>
+                          </properties>
+                        </component>
+                        <component type="IPControlLibrary.Controls.IPButton, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="IPButton16">
+                          <properties>
+                            <property name="OnClickSend">!show\r\n</property>
+                            <property name="OnMouseDownSend" />
+                            <property name="OnMouseUpSend" />
+                            <property name="OnDoubleClickSend" />
+                            <property name="BackColor">Control</property>
+                            <property name="Text">Show Current Parameters</property>
+                            <property name="UseVisualStyleBackColor">False</property>
+                            <property name="Font">Microsoft Sans Serif, 9.75pt, style=Bold</property>
+                            <property name="Location">199, 34</property>
+                            <property name="Name">IPButton16</property>
+                            <property name="Size">173, 41</property>
+                            <property name="TabIndex">56</property>
+                          </properties>
+                        </component>
+                        <component type="IPControlLibrary.Controls.IPButton, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="IPButton17">
+                          <properties>
+                            <property name="OnClickSend">!set [uName.Text] [uValue.Text]\r\n</property>
+                            <property name="OnMouseDownSend" />
+                            <property name="OnMouseUpSend" />
+                            <property name="OnDoubleClickSend" />
+                            <property name="BackColor">Control</property>
+                            <property name="Text">OK</property>
+                            <property name="UseVisualStyleBackColor">False</property>
+                            <property name="Font">Microsoft Sans Serif, 9.75pt</property>
+                            <property name="Location">319, 96</property>
+                            <property name="Name">IPButton17</property>
+                            <property name="Size">55, 23</property>
+                            <property name="TabIndex">65</property>
+                          </properties>
+                        </component>
+                        <component type="IPControlLibrary.Controls.IPTextBox, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="uValue">
+                          <properties>
+                            <property name="OnTextChangedSend" />
+                            <property name="AcceptsReturn">True</property>
+                            <property name="AutoCompleteMode">SuggestAppend</property>
+                            <property name="AutoCompleteSource">FileSystem</property>
+                            <property name="TextAlign">Center</property>
+                            <property name="CausesValidation">False</property>
+                            <property name="Font">Microsoft Sans Serif, 9.75pt, style=Bold</property>
+                            <property name="Location">189, 96</property>
+                            <property name="Name">uValue</property>
+                            <property name="Size">114, 22</property>
+                            <property name="TabIndex">64</property>
+                          </properties>
+                        </component>
+                      </children>
+                      <properties>
+                        <property name="TabStop">False</property>
+                        <property name="Text">PARAMETERS</property>
+                        <property name="BackColor">255, 255, 220</property>
+                        <property name="Location">149, 46</property>
+                        <property name="Name">GroupBox2</property>
+                        <property name="Size">380, 345</property>
+                        <property name="TabIndex">64</property>
+                      </properties>
+                    </component>
+                    <component type="N8I.Visualizers.ccDataTable, Standard, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="eepTable">
+                      <children child-list="Controls" />
+                      <properties>
+                        <property name="ReportEnabled">True</property>
+                        <property name="ContentName">eepTable</property>
+                        <property name="AutoValidate">EnableAllowFocusChange</property>
+                        <property name="BorderStyle">FixedSingle</property>
+                        <property name="AccessibleName">eepTable</property>
+                        <property name="AllowDrop">True</property>
+                        <property name="BackColor">255, 255, 192</property>
+                        <property name="Font">Microsoft Sans Serif, 9.75pt</property>
+                        <property name="Location">536, 17</property>
+                        <property name="Margin">4, 4, 4, 4</property>
+                        <property name="Name">eepTable</property>
+                        <property name="Size">461, 420</property>
+                        <property name="TabIndex">55</property>
+                        <property name="UseWaitCursor">True</property>
+                        <property name="ImeMode">On</property>
+                      </properties>
+                    </component>
+                  </children>
+                  <properties>
+                    <property name="TabStop">False</property>
+                    <property name="Text">EEPROM</property>
+                    <property name="BackColor">255, 255, 245</property>
+                    <property name="Font">Microsoft Sans Serif, 9.75pt, style=Italic</property>
+                    <property name="Location">315, 476</property>
+                    <property name="Name">GroupBox3</property>
+                    <property name="Size">1004, 444</property>
+                    <property name="TabIndex">54</property>
+                  </properties>
+                </component>
+              </children>
+              <properties>
+                <property name="AutoValidate">Disable</property>
+                <property name="BackColor">Control</property>
+                <property name="Name">UserControl1</property>
+                <property name="Size">1517, 1037</property>
+              </properties>
+              <components>
+                <component type="IPControlLibrary.Protocols.MLPMessageProcessor.MLPUIMessageProcessor, IPControlLibrary, Version=1.30.19236.824, Culture=neutral, PublicKeyToken=null" name="System Configuration">
+                  <properties>
+                    <property name="ChannelName">CONFIG</property>
+                    <property name="TrayLocation" design-only="">17, 17</property>
+                  </properties>
+                </component>
+              </components>
+            </design>
+            <values>
+              <value name="status">
+                <property name="Text"><![CDATA[	 CPU: a6d6dc
+	Core: 2_4_2
+	 MAC: 18:fe:34:a6:d6:dc
+	  IP: 192.168.0.71
+	DHCP: ESP_A6D6DC
+	SSID: kontopidis2GHz
+	 PWD: 123456789a
+	Chan: 5
+	RSSI: -39 dBm
+	HeapUse: 6 KB
+	HeapMax: 6 KB
+	]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="IPButton23">
+                <property name="Text"><![CDATA[Display System Status]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="IPTextBox2">
+                <property name="Text"><![CDATA[GKE Aug 2019]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="IPButton20">
+                <property name="Text"><![CDATA[Relay OFF]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="IPButton21">
+                <property name="Text"><![CDATA[Relay ON]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="IPButton24">
+                <property name="Text"><![CDATA[Normal]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="simulF">
+                <property name="Value"><![CDATA[90]]></property>
+                <property name="Minimum"><![CDATA[-20]]></property>
+                <property name="Maximum"><![CDATA[120]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="IPButton25">
+                <property name="Text"><![CDATA[Simulate]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="IPTextBox1">
+                <property name="Text"><![CDATA[Temperature-Humidity Multi-Sensor IoT]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="IPButton29">
+                <property name="Text"><![CDATA[Display & Graph]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="IPButton10">
+                <property name="Text"><![CDATA[Read & Update]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="stream2">
+                <property name="Text"><![CDATA[Mode: 0, Relay: OFF, Simul: OFF]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="stream1">
+                <property name="Text"><![CDATA[Temp: 72.9F (22.7C), Humidity: 42%]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="IPButton19">
+                <property name="Text"><![CDATA[Stop Streaming]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="IPButton18">
+                <property name="Text"><![CDATA[Stream Display]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="IPButton28">
+                <property name="Text"><![CDATA[OFF]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="IPButton27">
+                <property name="Text"><![CDATA[ON]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="IPButton4">
+                <property name="Text"><![CDATA[HTU21D]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="IPButton5">
+                <property name="Text"><![CDATA[NO SENSOR]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="IPButton6">
+                <property name="Text"><![CDATA[DHT22]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="IPButton7">
+                <property name="Text"><![CDATA[DS18B20]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="heatS">
+                <property name="Value"><![CDATA[0]]></property>
+                <property name="Minimum"><![CDATA[-20]]></property>
+                <property name="Maximum"><![CDATA[120]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="IPButton26">
+                <property name="Text"><![CDATA[Set Filter]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="filterS">
+                <property name="Value"><![CDATA[12]]></property>
+                <property name="Minimum"><![CDATA[0]]></property>
+                <property name="Maximum"><![CDATA[50]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="IPButton2">
+                <property name="Text"><![CDATA[Set Target]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="uName">
+                <property name="Text"><![CDATA[staticIP]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="IPButton12">
+                <property name="Text"><![CDATA[Initialize and Save Parameters]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="IPButton16">
+                <property name="Text"><![CDATA[Show Current Parameters]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="IPButton17">
+                <property name="Text"><![CDATA[OK]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+              <value name="uValue">
+                <property name="Text"><![CDATA[192.168.0.119]]></property>
+                <property name="Enabled"><![CDATA[True]]></property>
+              </value>
+            </values>
+            <value-store>
+              <value-set>
+                <name><![CDATA[Default]]></name>
+                <values>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;mlp-interface-values version="1.0"&gt;&lt;values&gt;&lt;value name="status"&gt;&lt;property name="Text"&gt;&lt;![CDATA[]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="IPButton23"&gt;&lt;property name="Text"&gt;&lt;![CDATA[Display System Status]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="IPTextBox2"&gt;&lt;property name="Text"&gt;&lt;![CDATA[GKE Aug 2019]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="IPButton20"&gt;&lt;property name="Text"&gt;&lt;![CDATA[Relay OFF]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="IPButton21"&gt;&lt;property name="Text"&gt;&lt;![CDATA[Relay ON]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="IPButton24"&gt;&lt;property name="Text"&gt;&lt;![CDATA[Normal]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="simulF"&gt;&lt;property name="Value"&gt;&lt;![CDATA[0]]&gt;&lt;/property&gt;&lt;property name="Minimum"&gt;&lt;![CDATA[-20]]&gt;&lt;/property&gt;&lt;property name="Maximum"&gt;&lt;![CDATA[120]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="IPButton25"&gt;&lt;property name="Text"&gt;&lt;![CDATA[Simulate]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="IPTextBox1"&gt;&lt;property name="Text"&gt;&lt;![CDATA[Temperature-Humidity Multi-Sensor IoT]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="IPButton29"&gt;&lt;property name="Text"&gt;&lt;![CDATA[Display &amp; Graph]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="IPButton10"&gt;&lt;property name="Text"&gt;&lt;![CDATA[Read &amp; Update]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="stream2"&gt;&lt;property name="Text"&gt;&lt;![CDATA[]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="stream1"&gt;&lt;property name="Text"&gt;&lt;![CDATA[]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="IPButton19"&gt;&lt;property name="Text"&gt;&lt;![CDATA[Stop Streaming]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="IPButton18"&gt;&lt;property name="Text"&gt;&lt;![CDATA[Stream Display]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="IPButton28"&gt;&lt;property name="Text"&gt;&lt;![CDATA[OFF]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="IPButton27"&gt;&lt;property name="Text"&gt;&lt;![CDATA[ON]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="IPButton4"&gt;&lt;property name="Text"&gt;&lt;![CDATA[HTU21D]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="IPButton5"&gt;&lt;property name="Text"&gt;&lt;![CDATA[NO SENSOR]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="IPButton6"&gt;&lt;property name="Text"&gt;&lt;![CDATA[DHT22]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="IPButton7"&gt;&lt;property name="Text"&gt;&lt;![CDATA[DS18B20]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="heatS"&gt;&lt;property name="Value"&gt;&lt;![CDATA[0]]&gt;&lt;/property&gt;&lt;property name="Minimum"&gt;&lt;![CDATA[-20]]&gt;&lt;/property&gt;&lt;property name="Maximum"&gt;&lt;![CDATA[120]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="IPButton26"&gt;&lt;property name="Text"&gt;&lt;![CDATA[Set Filter]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="filterS"&gt;&lt;property name="Value"&gt;&lt;![CDATA[0]]&gt;&lt;/property&gt;&lt;property name="Minimum"&gt;&lt;![CDATA[0]]&gt;&lt;/property&gt;&lt;property name="Maximum"&gt;&lt;![CDATA[50]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="IPButton2"&gt;&lt;property name="Text"&gt;&lt;![CDATA[Set Target]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="uName"&gt;&lt;property name="Text"&gt;&lt;![CDATA[]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="IPButton12"&gt;&lt;property name="Text"&gt;&lt;![CDATA[Initialize and Save Parameters]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="IPButton16"&gt;&lt;property name="Text"&gt;&lt;![CDATA[Show Current Parameters]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="IPButton17"&gt;&lt;property name="Text"&gt;&lt;![CDATA[OK]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;value name="uValue"&gt;&lt;property name="Text"&gt;&lt;![CDATA[]]&gt;&lt;/property&gt;&lt;property name="Enabled"&gt;&lt;![CDATA[True]]&gt;&lt;/property&gt;&lt;/value&gt;&lt;/values&gt;&lt;/mlp-interface-values&gt;</values>
+              </value-set>
+            </value-store>
+            <instance-id>8aa5c252-6ccf-4d0f-95d4-aa2b2505ab54</instance-id>
+            <TabTitle> *Interface Panel</TabTitle>
+            <ShowSourceInTitle>false</ShowSourceInTitle>
+            <ShowPortInTitle>false</ShowPortInTitle>
+            <SourceId>0</SourceId>
+          </Content>
+        </Contents>
+        <Panes Count="3">
+          <Pane ID="0" DockState="Document" ActiveContent="2">
+            <Contents Count="1">
+              <Content ID="0" RefID="2" />
+            </Contents>
+          </Pane>
+          <Pane ID="1" DockState="Document" ActiveContent="1">
+            <Contents Count="1">
+              <Content ID="0" RefID="1" />
+            </Contents>
+          </Pane>
+          <Pane ID="2" DockState="Document" ActiveContent="0">
+            <Contents Count="1">
+              <Content ID="0" RefID="0" />
+            </Contents>
+          </Pane>
+        </Panes>
+        <DockWindows>
+          <DockWindow ID="0" DockState="Document" ZOrderIndex="0">
+            <NestedPanes Count="3">
+              <Pane ID="0" RefID="0" PrevPane="-1" Alignment="Right" Proportion="0.5" />
+              <Pane ID="1" RefID="1" PrevPane="0" Alignment="Right" Proportion="0.289223155740303" />
+              <Pane ID="2" RefID="2" PrevPane="1" Alignment="Bottom" Proportion="0.774816176470588" />
+            </NestedPanes>
+          </DockWindow>
+          <DockWindow ID="1" DockState="DockLeft" ZOrderIndex="2">
+            <NestedPanes Count="0" />
+          </DockWindow>
+          <DockWindow ID="2" DockState="DockRight" ZOrderIndex="1">
+            <NestedPanes Count="0" />
+          </DockWindow>
+          <DockWindow ID="3" DockState="DockTop" ZOrderIndex="3">
+            <NestedPanes Count="0" />
+          </DockWindow>
+          <DockWindow ID="4" DockState="DockBottom" ZOrderIndex="4">
+            <NestedPanes Count="0" />
+          </DockWindow>
+        </DockWindows>
+        <FloatWindows Count="0" />
+      </DockPanel>
+    </window>
+  </windows>
+</meguno-link-project>

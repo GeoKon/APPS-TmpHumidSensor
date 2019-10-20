@@ -13,7 +13,7 @@
  *      1. fast blink 100/100 waiting for SERIAL connection
  *      2. slower blink 5sec waiting for WiFi connection
  * 
-  * NODEMCU: 374200 bytes (35%) of program storage space. Maximum is 1044464 bytes
+ * NODEMCU: 374200 bytes (35%) of program storage space. Maximum is 1044464 bytes
  * Global variables use 37548 bytes (45%) of dynamic memory, leaving 44372 bytes 
  * for local variables. Maximum is 81920 bytes. Uploading 378352 bytes
  * 
@@ -26,18 +26,19 @@
  *  ---------------------------------------------------------------------------------
  */
 
- // >>>>>>>>>>>>> SELECT CPU TYPE in myiGlobals.h <<<<<<<<<<<<<<<<<<<
+ // >>>>>>>>>>>>> SELECT CPU TYPE in myGlobals.h <<<<<<<<<<<<<<<<<<<
  
     #include <FS.h>
     #include <bufClass.h>       // in GKE-L1
     #include <ticClass.h>       // in GKE-L1
+    #include <iirClass.h>
     
     #include "SimpleSRV.h"      // in GKE-Lw
     #include "SimpleSTA.h"      // in GKE-Lw
-    
+    #include "CommonCLI.h"      // in GKE-Lw
+                                
     #include "myGlobals.h"      // in this project. This includes externIO.h
     #include "myEndPoints.h"
-    #include "commonCLI.h"
     #include "myCliHandlers.h"
 
 //------------------ References and Class Allocations ------------------------
@@ -46,8 +47,6 @@
     CLI cli;
     EXE exe;
     EEP eep;
-    
-//  FILT filter;
 
     ESP8266WebServer server( 80 );
     
@@ -55,18 +54,15 @@
 
 //------------------------- FORWARD REFERENCES -------------------------------
     
-//   char *help = "Temperature/humidity reader\r\n";   
-
-//    void blinkLEDAsync( int ms, uint32_t dly=0 );
-//    bool startCLIAfter( int ms );
-    void relayControl( float T );
-    void doTempReady( float C );
-    void checkButton();
-
+    bool buttonPressReady();
+    void setTempHumidity( int type, float X1, float X2 );
+    void setRelayHeatCool( float F );
+    
 // ----------------------------- Main Setup -----------------------------------
 
 void setup() 
 {
+    int je = setjmp( myp.env );                     // restart point
     cpu.init( 115200, MYLED+NEGATIVE_LOGIC /* LED */, BUTTON+NEGATIVE_LOGIC /* push button */ );
     
     pinMode(RELAY, OUTPUT); 
@@ -77,39 +73,35 @@ void setup()
     
     ASSERT( SPIFFS.begin() );                   // start the filesystem
 
-    myp.initAllParms( MAGIC_CODE );             // initialize volatile & user EEPROM parameters
+    myp.initAllParms();                         // initialize volatile & user EEPROM parameters
+    
+    linkParms2cmnTable( &myp );                // cast to (Global *) is not required
     exe.registerTable( cmnTable );              // register common CLI tables
     exe.registerTable( mypTable );              // register tables to CLI
-        
-    startCLIAfter( 10/*sec*/, &buffer );        // this also initializes cli(). See SimpleSTA.cpp         
-    
-    myp.tempfound = 0;                          // initialize max temp sensors and index. Needed in case of DHT
-    myp.tempindex = 0;
-    if( myp.gp.sensor == SENSOR_DS18 )
-    {
-        temp.search( true );                    // initialize the Dallas Thermomete
-        myp.tempfound = temp.count();
-        PF("Found %d DS18B20 sensors\r\n", myp.tempfound );
-    }
-    if( myp.gp.sensor == SENSOR_HTU )
-        if( htu.init() )
-            PF("Found HTU21D sensor\r\n" );
-    
-//  filter.setPropDelay( myp.gp.prdelay );              // propagation delay 
 
-    setupSTA( 30 );                                     // WiFi STA Setup 
-    srvCallbacks( server, Landing_STA_Page );           // standard WEB callbacks. "staLanding" is /. HTML page
-    cliCallbacks( server, buffer );                     // enable WEB CLI with buffer specified
-    snfCallbacks();
+    initOLED();                                 // initialize OLED. 
+    updateOLED( "Waiting for CLI");  
+    startCLIAfter( 10/*sec*/, &buffer );        // this also initializes cli(). See SimpleSTA.cpp    
+
+    updateOLED( "Connecting STA");              // Leave this as is. OneWire conflicts with I2C
+    setupWiFi ( );                             // WiFi STA Setup 
+
+    updateOLED("Starting Server");    
+    srvCallbacks( server, Landing_STA_Page );   // standard WEB callbacks. "staLanding" is /. HTML page
+    cliCallbacks( server, buffer );             // enable WEB CLI with buffer specified
+    snfCallbacks();    
+    setTrace( T_REQUEST | T_JSON );             // default WEB trace    
+    server.begin( eep.wifi.port );              // start the server
+
+    updateOLED("Init Sensors");    
     
-    setTrace( T_REQUEST | T_JSON );                     // default trace    
-    server.begin( eep.wifi.port );                      // start the server
-    PRN("HTTP server started.");    
+    initFilters( myp.gp.filter );               // initialize smoothing filters (see CLI Handlers)
+    initSensors( myp.gp.sensor );               // initialize sensors
     
     cli.prompt();
 }
 
-TICsec ticDS18( 2 );                                       // used for DS18
+TICsec ticDS18( 2 );                                    // used for DS18
 TICsec ticDHT ( 5 );                                       // used for DHT
 
 void loop()
@@ -119,8 +111,18 @@ void loop()
 //    else
         server.handleClient(); 
     
-    checkButton();                                      // toggle relay of button is pressed
-        
+     if( cpu.buttonPressed() )                       // check if button is pressed (and released afterwards)
+     {
+        myp.relayON    = !myp.relayON;            
+        digitalWrite( RELAY, myp.relayON );
+        if( myp.gp.tmode != RELAY_CONTROL )
+        {
+            myp.gp.tmode   = RELAY_CONTROL;             // force mode to be relay_control. Not heat or cool
+            myp.saveMyEEParms();
+        }
+        updateSelectedDisplays( 2 );                     // update status line
+       // PF("Button set relay %s\r\n", myp.relayON?"ON":"OFF" ); 
+    }
     if( cli.ready() )                                   // handle serial interactions
     {
         //exe.dispatchConsole( cli.gets() );            // if Meguno is not used
@@ -136,130 +138,118 @@ void loop()
     {
         if( ticDS18.ready() )
         {
-            cpu.led( ON );
-            if( myp.simulON )
-                doTempReady( myp.simulT );            
+            cpu.led( ON );            
+                        
+            if( myp.simulON )                           
+                setTempHumidity( SENSOR_DS18, myp.simulT, myp.simulT  );
             else
-                temp.start( myp.tempindex );             // either 0 or 1
+                temp.start( myp.tempindex );                // myp.tempindex is either 0 or 1
                 
             cpu.led( OFF );
         }
-        if( temp.ready() )
+        if( temp.ready() )                                  // this will become true every time a sensor is ready
         {
             if( temp.success(true) )
             {
-                float C = temp.getDegreesC();
+                float F = C_TO_F( temp.getDegreesC() );
+                static float F1, F2;
                 
-                if( myp.tempindex ^ myp.gp.flip )       // reverse the order if flip is set
-                    myp.tempC2    = C;                  // read C and C2 based on the index
+                if( myp.tempindex ^ myp.gp.flip )           // reverse the order if flip is set
+                    F2 = F;                                 // F1 is the previous reading  
                 else
-                    myp.tempC     = C;
+                    F1 = F;
 
-                myp.tempindex = temp.nextID();         // if multiple sensors, get the next one
-                
-                myp.humidity = -1.0;                   // humidity of <0.0 indicates temp measurement only    
-                relayControl( ctof(C) );               // decide what to do with the relay                        
-                mgnStream();                           // report measurements if streaming is enabled
+                if( myp.tempfound == 1 )                    // one sensor
+                    setTempHumidity( SENSOR_DS18, F1, F1 );
+                else                                        // two sensors
+                    if( myp.tempindex == 1 )
+                        setTempHumidity( SENSOR_DS18, F1, F2 );
+
+                myp.tempindex = temp.nextID();              // if multiple sensors, get the next one
             }
             else
                 PF("Temp Reading Error\r\n");
         }            
     }
-    if( myp.gp.sensor == SENSOR_DHT )                           // humidity
+    if( myp.gp.sensor == SENSOR_DHT )                       // humidity
     {
         if( ticDHT.ready() )
         {
-            float C, H;
+            float F, H;
             int err;
             cpu.led( ON );
     
-            if( myp.simulON )                                   // simulated temperature
+            if( myp.simulON )                               // simulated temperature
             {
-                C = ftoc( myp.simulT );
-                H = 10.0;
+                F = myp.simulT;
+                H = 0.0;
                 err = SimpleDHTErrSuccess;
             }
-            else                                                // actual reading
+            else                                            // actual reading
             {
+                float C;
                 noInterrupts();
                 err = dht22.read2( &C, &H, NULL);
                 interrupts();
+                F = C_TO_F( C );
             }
-            myp.tempC       = C; // filter.smooth( C );
-            myp.tempC2      = 0.0;
-            myp.humidity    = H;
-    
             if( err == SimpleDHTErrSuccess )
-            {
-                relayControl( ctof(C) );                              // decide what to do with the relay        
-                mgnStream();   
-            }
+                setTempHumidity( SENSOR_DHT, F, H ); 
             else
                 PF("Error 0x%04x (delay=%d, err=0x%02x)\r\n", err, (err>>8), (err & 0xFF) );
             
             cpu.led( OFF );
         }
     }
-    if( myp.gp.sensor == SENSOR_HTU )                           // temp-humidity using DHU21D
+    if( myp.gp.sensor == SENSOR_HTU )                       // temp-humidity using DHU21D
     {
         if( ticDS18.ready() )
         {
-            float C, H;
-            int err;
+            float F, H;
             cpu.led( ON );
     
-            if( myp.simulON )                                   // simulated temperature
+            if( myp.simulON )                               // simulated temperature
             {
-                C = ftoc( myp.simulT );
-                H = 10.0;
+                F = myp.simulT;
+                H = 0.0;
             }
-            else                                                // actual reading
+            else                                            // actual reading
             {
-                C = htu.readTemperature();
+                F = C_TO_F( htu.readTemperature() );
                 H = htu.readHumidity();
             }
-            myp.tempC       = C; // filter.smooth( C );
-            myp.tempC2      = 0.0;
-            myp.humidity    = H;
-
-            relayControl( ctof(C) );                            // decide what to do with the relay        
-            mgnStream(); 
+            setTempHumidity( SENSOR_HTU, F, H );
             cpu.led( OFF );
         }
     }
 }
 
 // -------------------------- RELAY CONTROL --------------------------------------------    
-
-    void doTempReady( float F )                       // simulate tempC and tempC2
-    {   
-        myp.tempC    = ftoc(F);                       // filter.smooth( C );
-        myp.tempC2   = ftoc(F);                       
-        myp.humidity = 0.0;
-        mgnStream();                                  // stream if streaming is enabled
-        
-        relayControl( F );                            // decide what to do with the relay                
-    }
-    void checkButton()
+    
+    void setTempHumidity( int type, float F, float X )      // X can be either humidity or 2nd temp
     {
-        static bool toggle = false;
-        static uint32_t T0;
-        if( cpu.button() )                            // button pressed
+        if( type == SENSOR_DS18 )
         {
-            if( (millis()-T0)<1000 )                   // no more than once per second
-                return;
-            T0 = millis();
-            
-            toggle = !toggle;            
-            digitalWrite( RELAY, myp.relayON = toggle );
-            PF("Button set relay %s\r\n", toggle?"ON":"OFF" );
+            myp.tempF       = iir1.filter( F );
+            myp.tempF2      = iir2.filter( X );
+            myp.humidity    = 0.0;          
         }
+        else
+        {
+            myp.tempF       = iir1.filter( F );
+            myp.tempF2      = myp.tempF;
+            myp.humidity    = iir3.filter( X );            
+        }
+        setRelayHeatCool( F );                              // decide what to do with the relay        
+        updateOLED();                      
+        updateSelectedDisplays( myp.gp.stream ); 
     }
-    void relayControl( float F )
+    
+    void setRelayHeatCool( float F )
     {
         switch (myp.gp.tmode )
         {
-            case RELAY_CONTROL:                       // let user change the relay
+            case RELAY_CONTROL:                             // let user change the relay
 //              digitalWrite( RELAY, LOW );
 //              myp.relayON = false;
                 break;

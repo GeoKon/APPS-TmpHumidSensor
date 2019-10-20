@@ -1,5 +1,4 @@
-/*
-###         myCliHanders.cpp Organization
+## myCliHanders.cpp Organization
 
 Contains the following blocks of code:
 
@@ -22,22 +21,12 @@ Contains the following blocks of code:
    - Lists of all CLI commands. 
    - Can be involved via the console CLI or via he WEB server
 
-###         Exported functions
+### Source code
+
+
+
+
+
 ```
-*/
-#include "cliClass.h"
 
-extern CMDTABLE mypTable[];                             // table of all CLI commands
-extern IIR iir1, iir2, iir3;                            // Smoothing filters (used by the main loop()
-
-void initFilters( int samples );                        // intializes IIR filters
-void initSensors( sensor_t  senstype, BUF *bp=NULL );   // initialized sensors according to myp.gp.sensor
-
-void updateSelectedDisplays( int code );                // used by main loop() to update CLI and Meguno displays
-
-void initOLED();                                        // OLED functions
-void updateOLED( );
-void updateOLED( char *status );
-/*
 ```
-*/

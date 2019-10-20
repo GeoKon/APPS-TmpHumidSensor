@@ -25,8 +25,8 @@ void snfCallbacks( )
         json.set("{'type':%d, 'count':%d, 'temp':%.1f, 'temp2':%.1f, 'tmode':%d, 't_heat':%.1f, 'tstate':%d, 'hold':%d, 'humidity':%.0f}", 
             /* type */   myp.gp.sensor,
             /* count */  myp.tempfound,
-            /* temp */   C_TO_F( myp.tempC ),
-            /* temp2 */  C_TO_F( myp.tempC2 ),
+            /* temp */   myp.tempF,
+            /* temp2 */  myp.tempF2,
             /* tmode */  myp.gp.tmode, 
             /* t_heat */ myp.gp.threshold,
             /* tstate */ myp.relayON, 
@@ -79,6 +79,7 @@ void snfCallbacks( )
         showJson( json.c_str() );
         server.send(200, "application/json", json.c_str() );
     });
+    
     // this is redundant to /cli:cmd=cmd+arg+arg
     server.on("/set", HTTP_GET, 
     [](){

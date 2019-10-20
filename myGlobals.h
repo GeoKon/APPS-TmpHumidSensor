@@ -7,8 +7,8 @@
 
 // =================== GLOBAL HARDWARE CONSTANTS ===================================
 
-// #define NODEMCU           // 2. Choose COU either NODEMCU or SONOFF
-   #define SONOFF            // Flash=DOUT, Size=1M (256k SPIFFS)
+ #define NODEMCU           // 2. Choose COU either NODEMCU or SONOFF
+//   #define SONOFF            // Flash=DOUT, Size=1M (256k SPIFFS)
 
 // =================================================================================
 /*
@@ -24,19 +24,17 @@
     Use command line to initialize Unit Label
 */
 
+#include <nmpClass.h>       // in GKE-L1
 #include <ds18Class.h>      // in GKE-L2
 #include <htu21Class.h>     // in GKE-L2
 #include "SimpleDHT.h"      // in GKE-L2
-    
-#include "externIO.h"       // in GKE-Lw. Includes and externs of cpu,...,eep
-#include <nmpClass.h>
+#include <IGlobal.h>        // in GKE-Lw. Base class for this. Includes externIO.h and setjmp. 
 
 // ----------------- Exported by this module ---------------------------------------
 
     extern NMP nmp;             // allocated in myGlobals.cpp; used only by this                             
     extern DS18 temp;			// allocated in myGlobals.cpp; used this application 
     extern HTU21 htu;           // allocated in myGlobals.cpp; used this application 
-    
     extern SimpleDHT22 dht22;	// allocated in myGlobals.cpp; used this application 
 
     #ifdef SONOFF 
@@ -53,7 +51,7 @@
         #define RELAY       12      // NodeMCU D4
     #endif
 
-#define MAGIC_CODE 0x1447
+#define MAGIC_CODE 0x1457
 
 float ctof( float X );
 float ftoc( float X );
@@ -64,43 +62,46 @@ float ftoc( float X );
     enum thermode_t { RELAY_CONTROL=0, HEAT_MODE=1, COOL_MODE=2 };
     enum sensor_t   { SENSOR_NONE=0, SENSOR_DS18=1, SENSOR_DHT=2, SENSOR_HTU=3 };
     
-    class Global
+    class Global: public IGlobal
     {
       public:												// ======= A1. Add here all volatile parameters 
-        wifi_state wifiOK;          // state variables
+        ~Global(){;}
+        
+        jmp_buf env;                // longjmp environment
+        wifi_state wifiOK;          // state variable of WiFi
         
         int   tempfound;            // number of sensors found
         int   tempindex;            // 0 or 1 
-        float tempC;                // current temperature in C
-        float tempC2;               // second temperature in C
+        float tempF;                // current temperature in F
+        float tempF2;               // second temperature in F
         float humidity;             // current humidity
         
         bool relayON;               // state of the relay
         bool simulON;               // active simulation
-        float simulT;               // simulated temperature in C;                                                        
+        float simulT;               // simulated temperature in F;                                                        
     
 		void initVolatile()                                 // ======= A2. Initialize here the volatile parameters
 		{
-			wifiOK = TRYING_WIFI;      
+			                        // env is not initialized!
+			wifiOK = TRYING_WIFI; 
             tempfound = 0;
-            tempC = tempC2 =  simulT = 0.0;
+            tempF = tempF2 =  simulT = 0.0;
             humidity = -1.0;        // indicates temp measurement only
 			relayON = false;
 			simulON = false;
 		}    
 		void printVolatile( char *prompt="", BUF *bp=NULL ) // ======= A3. Add to buffer (or print) all volatile parms
-		{
-			;
-		}
+		{;}
 		struct gp_t                                         // ======= B1. Add here all non-volatile parameters into a structure
 		{                           
             int stream;             // serial display streaming
             sensor_t sensor;        // 0=none, 1=temp, 2=temp/hum
             int flip;               // flip order of DS18 sensors
+            int oled;               // OLED on or off
             int tmode;              // 0=no_relay 1=heat, 2=cold
-            int prdelay;            // propagation delay. Use 0 for no delay
-            float threshold;        // always in deg C
-            float delta;            // in deg C
+            int filter;             // propagation delay. Use 0 for no delay
+            float threshold;        // in deg F
+            float delta;            // in deg F
 		} gp;
 		
 		void initMyEEParms()                                // ======= B2. Initialize here the non-volatile parameters
@@ -108,19 +109,21 @@ float ftoc( float X );
             gp.stream    = 0;
             gp.sensor    = SENSOR_DS18;
             gp.flip      = 0;
+            gp.oled      = 1;
             gp.tmode     = (thermode_t) RELAY_CONTROL;
-            gp.prdelay   = 0;
+            gp.filter    = 0;
             gp.threshold = 0.0;
             gp.delta     = 0.9;
 		}		
         void registerMyEEParms()                           // ======= B3. Register parameters by name
         {
             nmp.resetRegistry();
-            nmp.registerParm( "stream",     'd', &gp.stream,    "0:none 1:streaming ON"    );
-            nmp.registerParm( "sensor",     'd', &gp.sensor,    "0:none 1:DS18 2=DHT 3=HTU" );
+            nmp.registerParm( "stream",     'd', &gp.stream,    "1:dsp 2:stat 4:graph. Use CLI" );
+            nmp.registerParm( "sensor",     'd', &gp.sensor,    "1:DS18 2=DHT 3=HTU. Use CLI" );
             nmp.registerParm( "flip",       'd', &gp.flip,      "flip DS18 sensors (0 or 1)" );
-            nmp.registerParm( "tmode",      'd', &gp.tmode,     "0:manual 1:heat 2:cool"  );
-            nmp.registerParm( "prdelay",    'd', &gp.prdelay,   "0:no smoothing"          );
+            nmp.registerParm( "oled",       'd', &gp.oled,      "0:OFF, 1:ON. Use CLI" );
+            nmp.registerParm( "tmode",      'd', &gp.tmode,     "0:manual 1:heat 2:cool"     );
+            nmp.registerParm( "filter",     'd', &gp.filter,    "IIR filter. Use CLI"        );
             nmp.registerParm( "target",     'f', &gp.threshold, "target temp deg-F", "%.1f"  );
             nmp.registerParm( "delta",      'f', &gp.delta,     "hysterysis deg-F",  "%.2f"  );
 			
@@ -131,11 +134,10 @@ float ftoc( float X );
 		{
 			nmp.printAllParms( prompt );
 		}
-		#include <GLOBAL.hpp>                               // Common code for all Global implementations
-		
-	//    void initAllParms( int myMagic  )       
-	//    void fetchMyEEParms()
-	//    void saveMyEEParms()                              // saves USER parameters (only)
+        void initAllParms()
+        {
+            initTheseParms( MAGIC_CODE, (byte *)&gp, sizeof( gp ) );
+        }
 	};
     
     extern Global myp;                                      // exported class by this module
